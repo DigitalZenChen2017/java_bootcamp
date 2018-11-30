@@ -21,7 +21,7 @@ public class FutureValueApp {
             System.out.println();
 
             // calculate the future value
-            double monthlyInterestRate = interestRate / 100;
+            double monthlyInterestRate = interestRate / 100/ 12;
             int months = years * 12;
             double futureValue = calculateFutureValue(
                     monthlyInvestment, monthlyInterestRate, months);
@@ -122,10 +122,12 @@ public class FutureValueApp {
 
     public static double calculateFutureValue(double monthlyInvestment,
             double monthlyInterestRate, int months) {
+    	System.out.println("Calculating Future Value...");
         double futureValue = 0;
         for (int i = 1; i <= months; i++) {
             futureValue = (futureValue + monthlyInvestment) * 
                           (1 + monthlyInterestRate);
+            System.out.println("Month "+i+" futureValue: "+futureValue);
         }
         return futureValue;
     }

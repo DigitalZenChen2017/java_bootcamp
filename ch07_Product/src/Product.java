@@ -37,7 +37,7 @@ public class Product {
     }
 
     public String getPriceFormatted() {
-        NumberFormat currency = NumberFormat.getCurrencyInstance();
-        return currency.format(price);
+        NumberFormat currency = NumberFormat.getCurrencyInstance(); // define the object and using its method
+        return currency.format(price); // 
     }
 }
