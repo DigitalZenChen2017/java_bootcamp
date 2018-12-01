@@ -5,7 +5,7 @@ public class InheritanceDemoApp {
 		
 		System.out.println("Hello");
 		
-		ParentClass pc = new ParentClass("Parent");
+		ParentClass pc = new ParentClass("Parent"); // create a new instance of an object
 		
 		System.out.println("pc = "+pc);
 		
