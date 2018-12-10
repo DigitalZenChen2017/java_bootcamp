@@ -13,9 +13,7 @@ public class ArraysDemoApp {
 		numbers[3] = 70;
 		numbers[4]= 60;
 		
-		for(int i = 0; i < numbers.length; i++) {
-			System.out.println(numbers[i]);
-		}
+		
 		
 		String[] names = new String[7];
 		names [0] = "Yelena";
