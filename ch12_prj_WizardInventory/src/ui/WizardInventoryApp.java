@@ -36,7 +36,7 @@ public class WizardInventoryApp {
 		// prompt user input - COMMAND:
 		System.out.println();
 		String command = c.getString("Command: ");
-		
+
 		switch(command.toLowerCase()) {
 		case "show": // DISPLAYS all items in Wizard's inventory
 		// foreach loop
