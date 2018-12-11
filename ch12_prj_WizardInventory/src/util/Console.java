@@ -7,8 +7,8 @@ public class Console {
 	
 	public String getString(String prompt) {
 		System.out.print(prompt);
-		String s = sc.next(); // read user entry
-		sc.nextLine(); //discard any other data entered on the line
+		String s = sc.nextLine(); // read user entry
+//		sc.nextLine(); //discard any other data entered on the line
 		return s;
 	}
 	
@@ -38,7 +38,7 @@ public class Console {
 						"Error! Number must be greater than " + min + ".");
 			} else if (i > max) {
 				System.out.println(
-						"Error! Number must be less than " + max + ".");
+						"Error! Highest number must be " + max + ".");
 			}  else { 
 				  isValid = true;
 			  }
