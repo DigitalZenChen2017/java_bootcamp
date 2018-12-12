@@ -22,20 +22,20 @@ private static Scanner sc = new Scanner(System.in);
 		while(choice.equalsIgnoreCase("y")) { 
 			
 		// business logic
-		die1 = (int) (Math.random() * 6) + 1; // explicit casting > double to int - more to less precise
-		die2 = (int) (Math.random() * 6) + 1;
-		int sum = die1+die2;
+		die1 = rollDice(); // explicit casting > double to int - more to less precise
+		die2 = rollDice();
+		int diesum = die1+die2;
 		
 		// display output
 		System.out.println("Die 1: " + die1);
 		System.out.println("Die 2: " + die2);
-		System.out.println("Total: " + sum);
+		System.out.println("Total: " + diesum);
 		
 		// special messages
-		if (die1 == 1 && die2 == 1) {
+		if (diesum == 2) {
 		System.out.println("Snake Eyes!");
 		}
-		else if (die1 == 6 && die2 == 6) {
+		else if (diesum == 12) {
 		System.out.println("Boxcars!");
 		}
 
@@ -49,6 +49,10 @@ private static Scanner sc = new Scanner(System.in);
 		
 	}
 	
+	// obtain a random number between 1-6
+	public static int rollDice() {
+		return (int) (Math.random() * 6) + 1; // explicit casting
+	}
 	
 
     public static String getString(String prompt) {
