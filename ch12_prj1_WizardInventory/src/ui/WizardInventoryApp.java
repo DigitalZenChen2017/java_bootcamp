@@ -2,6 +2,7 @@ package ui;
 
 import util.Console;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class WizardInventoryApp {
 
@@ -16,9 +17,11 @@ public class WizardInventoryApp {
 		
 		// create ArrayList and set Wizard default 3 items
 		ArrayList<String> items = new ArrayList<String>();
-		items.add("Holy Staff");
-		items.add("Vivi's Wizard Hat");
-		items.add("Moon Boots");
+//		items.add("Holy Staff");
+//		items.add("Vivi's Wizard Hat");
+//		items.add("Moon Boots");
+		
+		Collections.addAll(items, "Holy Staff", "Vivi's Wizard Hat", "Moon Boots");
 		
 		int itemSize = items.size();
 		int itemMax = 4;
