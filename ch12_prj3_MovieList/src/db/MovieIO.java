@@ -118,7 +118,7 @@ public class MovieIO {
     
     // Return a list of movies that match the input category
     public ArrayList<Movie> getMovies() {
-    	return movies;
+    	return (ArrayList<Movie>) (Math.random() * 10 + 1);
     }
     
     public ArrayList<Movie> getMovies(String cat) {

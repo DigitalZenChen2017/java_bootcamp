@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import business.Movies;
+
 public class CollectionsDemoApp {
 	public static void main(String[] args) {
 		System.out.println("Hello");
@@ -87,6 +89,12 @@ public class CollectionsDemoApp {
 		for(Map.Entry sale : sales.entrySet()) {
 			System.out.println(sale.getKey() + ": " + sale.getValue());
 		}
+		
+		// ArrayList of integers (wrapper class) the "type" <> is coded once in the declaration and on the constructor that creates an instance of the collection
+		ArrayList <Integer> bootcampstudents = new ArrayList<Integer>();
+		
+		// ArrayList of Objects
+		ArrayList <Movies> movies = new ArrayList<Movies>();
 		
 	}
 }
