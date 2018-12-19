@@ -9,7 +9,7 @@ public class FunWithFiles {
 	public static void main(String[] args) throws IOException {
 		System.out.println("Hello");
 		// create a folder on C:\ if it doesn't exist
-		String dirString = "/Users/Edna/Documents/bootcamp/files";
+		String dirString = "/Users/Edna/Documents/bootcamp/files"; // sets String variable to reference an absolute path 
 		Path dirPath = Paths.get(dirString);
 		if(Files.notExists(dirPath)) {
 		   Files.createDirectories(dirPath);

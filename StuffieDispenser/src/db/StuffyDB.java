@@ -9,6 +9,11 @@ public class StuffyDB {
 	// create ArrayList of Movie objects
 	ArrayList<Stuffie> stuffies;
 	
+	// constructor that by default populates list of Stuffy objects
+	public StuffyDB() {
+		populateStuffies();
+	}
+	
 	public void populateStuffies() {
 		stuffies = new ArrayList<>();
 		stuffies.add(new Stuffie(1, "Cat", "Small", "Yellow"));
@@ -23,19 +28,17 @@ public class StuffyDB {
 		stuffies.add(new Stuffie(10, "Lion", "Large", "Yellow"));
 	}
 	
-	public ArrayList<Stuffie> grabStuffie(int id) {
-		// choose random object
-		
-    	return stuffies;
+	public int grabStuffie() {
+		// grab random Stuffie
+		int random = (int) (Math.random() * stuffies.size()) + 1; 
+//		System.out.println(random);
+//		random = stuffies.indexOf(stuffies) - 1;
+//		return random;
+		if rand
     }
-	
+
 //	public void ArrayList<Stuffie> addStuffie(int id) {
 //		this.id = Stuffie
 //    	ret;
 //    }
 //	
-	public int generateRandomIntWithinRange(Stuffie min, Stuffie max) {
-		int stuffieSize = stuffies.size();
-		return (int) (Math.random() * stuffieSize + 1);
-	}
-}

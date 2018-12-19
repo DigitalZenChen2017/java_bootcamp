@@ -17,6 +17,9 @@ public class MovieListApp {
 		Console console = new Console();
 		MovieIO mIO = new MovieIO();
 		
+		// populate Movie List
+		
+		
 		while(choice.equalsIgnoreCase("y")) {
 			
 			System.out.println("1. List All Movies\n" +

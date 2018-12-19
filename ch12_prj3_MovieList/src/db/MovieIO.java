@@ -8,6 +8,7 @@ public class MovieIO {
 	
 	public ArrayList<Movie> movies;
 	
+	// constructor that populates list of ALL MOVIES
 	public MovieIO() {
 		populateMovieList();
 	}
@@ -118,7 +119,7 @@ public class MovieIO {
     
     // Return a list of movies that match the input category
     public ArrayList<Movie> getMovies() {
-    	return (ArrayList<Movie>) (Math.random() * 10 + 1);
+    	return movies;
     }
     
     public ArrayList<Movie> getMovies(String cat) {
