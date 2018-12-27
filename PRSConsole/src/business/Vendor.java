@@ -109,9 +109,12 @@ public class Vendor {
 		public void setPreApproved(boolean preApproved) {
 			this.preApproved = preApproved;
 		}
-		
-		
-		
-		
-		
+
+		@Override
+		public String toString() {
+			return "Vendor [id=" + id + ", code=" + code + ", name=" + name + ", address=" + address + ", city=" + city
+					+ ", state=" + state + ", zip=" + zip + ", phone=" + phone + ", email=" + email + ", preApproved="
+					+ preApproved + "]";
+		}
+	
 }
