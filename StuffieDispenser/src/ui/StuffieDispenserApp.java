@@ -19,27 +19,22 @@ public class StuffieDispenserApp {
 			System.out.println("MENU:\n" +
 							   "1. Grab Stuffie\n"+
 							   "2. Add Stuffie\n"+
-							   "3. Exit\n\n");
+							   "3. Exit\n");
 			
 			// Prompt User Input
-			int selection = c.getIntWithinRange("Select From 3 Options: \n", 1, 3);
+			int selection = c.getIntWithinRange("Select From 3 Options: ", 1, 3);
 			
 			// 3 Options
 			switch(selection) {
 			case 1: // Grab Stuffie
-			case 2:
 			db.grabStuffie(); 
-			
-			
-				
 			break;	
-//			case 2: // Add Stuffie
-//			
-//				
+			case 2: // Add Stuffie				
+			db.addStuffie();
 				
-//			break;
+			break;
 			case 3: // Exit Game 
-			System.out.println("Thanks for playing the Stuffie Dispenser Game!");	
+			System.out.println("\nThanks for playing the Stuffie Dispenser Game!");	
 			choice = false;	
 			break;	
 			}

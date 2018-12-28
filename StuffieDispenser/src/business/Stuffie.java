@@ -36,8 +36,8 @@ public final class Stuffie {
 
 	@Override
 	public String toString() {
-		return size + " " + type + " " + color;
-	}e
+		return size + " " + color + " " + type;
+	}
 
 	public void setType(String type) {
 		this.type = type;

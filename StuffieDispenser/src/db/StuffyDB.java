@@ -31,14 +31,15 @@ public class StuffyDB {
 	public int grabStuffie() {
 		// grab random Stuffie
 		int random = (int) (Math.random() * stuffies.size()) + 1; 
-//		System.out.println(random);
-//		random = stuffies.indexOf(stuffies) - 1;
-//		return random;
-		if rand
+		System.out.println("\nYou grabbed a " + stuffies.get(random - 1) + "!\n");
+		return random;
     }
+	
+	public void addStuffie() {
+		stuffies.add(new Stuffie(11, "Bear", "Small", "Brown"));
+    }
+	
+	
+}
 
-//	public void ArrayList<Stuffie> addStuffie(int id) {
-//		this.id = Stuffie
-//    	ret;
-//    }
-//	
+

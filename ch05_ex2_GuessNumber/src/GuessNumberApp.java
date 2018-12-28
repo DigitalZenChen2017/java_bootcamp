@@ -5,7 +5,7 @@ public class GuessNumberApp {
     
     private static void displayWelcome(int limit) {
         System.out.println("Guess the number!");
-        System.out.println("I'm thinking of a number from 1 to " + limit);
+        System.out.println("I'm thinking of a number from 1 to " + limit + "...");
         System.out.println();
     }
     
@@ -27,18 +27,27 @@ public class GuessNumberApp {
         int count = 1;
         while (true) {
         	int guess;
-        	try {        	
-        		System.out.print("Your guess: ");
-        		guess = sc.nextInt();            
-        	} catch (InputMismatchException e) {
+//        	try {        	
+//        		System.out.print("Your guess: ");
+//        		guess = sc.nextInt();            
+//        	} catch (InputMismatchException e) {
+//        		System.out.println("Error! Invalid input. Try again.\n");
+//        		sc.nextLine(); // discard all data entered by the user
+//        		continue;        		
+//        	}
+        	System.out.print("Your guess: ");
+        	if (sc.hasNextInt()) {
+        		guess = sc.nextInt();
+        		sc.nextLine();
+        	} else {
         		System.out.println("Error! Invalid input. Try again.\n");
-        		sc.nextLine(); // discard all data entered by the user
-        		continue;        		
+        		sc.nextLine();
+        		continue;
         	}
-            if (guess < 1 || guess > LIMIT) {
-                System.out.println("Invalid guess. Try again.");
-                continue;
-            }
+//            if (guess < 1 || guess > LIMIT) {
+//                System.out.println("Invalid guess. Try again.");
+//                continue;
+//            }
             
             if (guess < number) {
                 System.out.println("Too low.");
