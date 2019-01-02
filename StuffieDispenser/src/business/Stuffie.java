@@ -1,5 +1,7 @@
 package business;
 
+import db.StuffyDB;
+
 public final class Stuffie {
 	// declare private instant variables
 	private int id;
@@ -9,6 +11,15 @@ public final class Stuffie {
 	
 	// generate constructor with fields
 	
+	public Stuffie(StuffyDB db, String type, String size, String color) {
+		super();
+		this.id = db.getNextStuffieID();
+		this.type = type;
+		this.size = size;
+		this.color = color;
+	}
+	
+	// constructor for populating initial 10 stuffy objects
 	public Stuffie(int id, String type, String size, String color) {
 		super();
 		this.id = id;

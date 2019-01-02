@@ -3,11 +3,18 @@ package db;
 import java.util.ArrayList;
 
 import business.Stuffie;
+import util.Console;
 
 public class StuffyDB {
 	
-	// create ArrayList of Movie objects
+	// create ArrayList of Stuffie objects
 	ArrayList<Stuffie> stuffies;
+	
+	// define instance variable
+	private int stuffieID = 0;
+	
+	// create Console object
+	Console cons = new Console();
 	
 	// constructor that by default populates list of Stuffy objects
 	public StuffyDB() {
@@ -30,16 +37,32 @@ public class StuffyDB {
 	
 	public int grabStuffie() {
 		// grab random Stuffie
+		if (stuffies.size() > 0) {
 		int random = (int) (Math.random() * stuffies.size()) + 1; 
 		System.out.println("\nYou grabbed a " + stuffies.get(random - 1) + "!\n");
-		return random;
+		stuffies.remove(random - 1);
+		}
+		else if (stuffies.size() == 0) {
+		System.out.println("\nThere are no more stuffies left in the dispenser.\n");	
+		}
+		return 0;
+	}
+		
+	
+	public void addStuffie(Stuffie stuffie) {
+		stuffies.add(stuffie);
+//		int stuffieID = stuffies.size() + 1;
+//		String stuffieType = cons.getString("\nEnter Stuffie Type: ");
+//		String stuffieSize = cons.getString("Enter Stuffie Size: ");
+//		String stuffieColor = cons.getString("Enter Stuffie Color: ");
+//		stuffies.add(new Stuffie(stuffieID, stuffieType, stuffieSize, stuffieColor));
+//		System.out.println("\nYou added a " + stuffies.get(stuffieID - 1) + ".\n");
     }
 	
-	public void addStuffie() {
-		stuffies.add(new Stuffie(11, "Bear", "Small", "Brown"));
-    }
-	
-	
+	public int getNextStuffieID() {
+		stuffieID++;
+		return stuffieID;
+	}
 }
 
 

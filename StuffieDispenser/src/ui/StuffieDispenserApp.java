@@ -1,5 +1,6 @@
 package ui;
 
+import business.Stuffie;
 import db.StuffyDB;
 import util.Console;
 
@@ -30,16 +31,18 @@ public class StuffieDispenserApp {
 			db.grabStuffie(); 
 			break;	
 			case 2: // Add Stuffie				
-			db.addStuffie();
-				
+			String stuffieType = c.getString("\nEnter Stuffie Type: ");
+			String stuffieSize = c.getString("Enter Stuffie Size: ");
+			String stuffieColor = c.getString("Enter Stuffie Color: ");
+			Stuffie s = new Stuffie(db, stuffieType, stuffieSize, stuffieColor);
+			System.out.println("\nYou added a " + s + ".\n");
+			db.addStuffie(s);
 			break;
 			case 3: // Exit Game 
 			System.out.println("\nThanks for playing the Stuffie Dispenser Game!");	
 			choice = false;	
 			break;	
 			}
-		}
-		
+		}	
 	}
-
 }
