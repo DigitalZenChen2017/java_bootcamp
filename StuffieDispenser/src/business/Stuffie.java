@@ -10,7 +10,11 @@ public final class Stuffie {
 	private String color;
 	
 	// generate constructor with fields
+	public Stuffie() {
+		
+	}
 	
+	// constructor used in addStuffie method
 	public Stuffie(StuffyDB db, String type, String size, String color) {
 		super();
 		this.id = db.getNextStuffieID();
@@ -21,7 +25,6 @@ public final class Stuffie {
 	
 	// constructor for populating initial 10 stuffy objects
 	public Stuffie(int id, String type, String size, String color) {
-		super();
 		this.id = id;
 		this.type = type;
 		this.size = size;
@@ -68,6 +71,13 @@ public final class Stuffie {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+	
+	public boolean stuffyExists(int id) { 
+		if (this.id == id) {
+			return true;
+		}
+			return false;
 	}
 	
 	

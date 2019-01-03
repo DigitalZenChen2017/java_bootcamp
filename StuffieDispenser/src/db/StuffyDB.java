@@ -10,18 +10,29 @@ public class StuffyDB {
 	// create ArrayList of Stuffie objects
 	ArrayList<Stuffie> stuffies;
 	
-	// define instance variable
-	private int stuffieID = 0;
+	// define instance variables
+	private int stuffieID = 10;
+	
 	
 	// create Console object
 	Console cons = new Console();
+	
+	
+	// constructor with one parameter of # of stuffie objects and assigns unique ID for each one
+//	public StuffyDB(int n) {
+//		for (int i = 1; i <= n; i++) {
+//			int id = getNextStuffieID();
+//			Stuffie s = new Stuffie(id);
+//			addStuffie(s);
+//		}
+//	}
 	
 	// constructor that by default populates list of Stuffy objects
 	public StuffyDB() {
 		populateStuffies();
 	}
 	
-	public void populateStuffies() {
+	private void populateStuffies() {
 		stuffies = new ArrayList<>();
 		stuffies.add(new Stuffie(1, "Cat", "Small", "Yellow"));
 		stuffies.add(new Stuffie(2, "Dog", "Medium", "Black"));
@@ -35,19 +46,24 @@ public class StuffyDB {
 		stuffies.add(new Stuffie(10, "Lion", "Large", "Yellow"));
 	}
 	
-	public int grabStuffie() {
-		// grab random Stuffie
-		if (stuffies.size() > 0) {
-		int random = (int) (Math.random() * stuffies.size()) + 1; 
-		System.out.println("\nYou grabbed a " + stuffies.get(random - 1) + "!\n");
-		stuffies.remove(random - 1);
+	public Stuffie grabStuffie(int id) {
+		for(Stuffie stuffie : stuffies) {
+			if (stuffie.getId() == id) {
+				stuffies.remove(stuffie);
+				return stuffie;
+			}
 		}
-		else if (stuffies.size() == 0) {
-		System.out.println("\nThere are no more stuffies left in the dispenser.\n");	
-		}
-		return 0;
+		return null;
 	}
-		
+//		if (stuffies.size() > 0) {
+//		int random = (int) (Math.random() * stuffies.size()) + 1; 
+//		System.out.println("\nYou grabbed a " + stuffies.get(random - 1) + "!\n");
+//		stuffies.remove(random - 1);
+//		}
+//		else if (stuffies.size() == 0) {
+//		System.out.println("\nThere are no more stuffies left in the dispenser.\n");	
+//		}
+//		return 0;
 	
 	public void addStuffie(Stuffie stuffie) {
 		stuffies.add(stuffie);
@@ -63,6 +79,26 @@ public class StuffyDB {
 		stuffieID++;
 		return stuffieID;
 	}
+	
+	public int getDBSize() {
+		int maxStuffie = 0;
+		for(Stuffie stuffie : stuffies) {
+			if (stuffie.getId() > maxStuffie) {
+				maxStuffie = stuffie.getId();
+			}
+		}
+		return maxStuffie;
+	}
+	
+	// Review boolean method
+	public boolean checkForStuffy(int id) {
+		for (Stuffie stuffy : stuffies) {
+			if (stuffy.stuffyExists(id) == true)
+				return true;
+		}
+		return false;
+	}
+	
 }
 
 

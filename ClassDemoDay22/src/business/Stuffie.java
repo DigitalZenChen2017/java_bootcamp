@@ -6,9 +6,9 @@ public final class Stuffie {
 	private String type;
 	private String size;
 	private String color;
-	
+
 	// generate constructor with fields
-	
+
 	public Stuffie(int id, String type, String size, String color) {
 		super();
 		this.id = id;
@@ -16,7 +16,7 @@ public final class Stuffie {
 		this.size = size;
 		this.color = color;
 	}
-	
+
 	public Stuffie(int id) {
 		super();
 		this.id = id;
@@ -26,7 +26,5 @@ public final class Stuffie {
 	public String toString() {
 		return "Stuffie [id=" + id + ", type=" + type + ", size=" + size + ", color=" + color + "]";
 	}
-	
-	
-	
+
 }

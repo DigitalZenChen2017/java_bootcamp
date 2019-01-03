@@ -6,7 +6,7 @@ import business.Stuffie;
 
 public class FunWithFiles {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException { // main method might throw a IOException
 		System.out.println("Hello");
 		// create a folder on C:\ if it doesn't exist
 		String dirString = "/Users/Edna/Documents/bootcamp/files"; // sets String variable to reference an absolute path 
@@ -17,13 +17,13 @@ public class FunWithFiles {
 		
 		// create a file in this new folder
 		String fileString = "stuffies.txt";
-		Path filePath = Paths.get(dirString, fileString);
+		Path filePath = Paths.get(dirString, fileString); // .get method takes 2 string parameters/arguments that specify the path
 		if(Files.notExists(filePath)) {
 			   Files.createFile(filePath);
 			}
 		
 		// display the folder structure
-		if (Files.exists(dirPath) && Files.isDirectory(dirPath)) {
+		if (Files.exists(dirPath) && Files.isDirectory(dirPath)) { // if Path exists AND is a directory
 			System.out.println("Directory: " + dirPath.toAbsolutePath());
 			System.out.println("Files: ");
 			DirectoryStream<Path> dirStream = Files.newDirectoryStream(dirPath);
@@ -36,14 +36,15 @@ public class FunWithFiles {
 				
 			}
 			
-		}
+		} 
 		
 		// Write to the file
 		File stuffiesFile = filePath.toFile();
-//		// open an output stream
-//		PrintWriter out =   new PrintWriter(
-//							new BufferedWriter(
-//							new FileWriter(stuffiesFile)));
+		
+//		// open an output stream for appending to the text file
+//		PrintWriter out =   new PrintWriter( // contains the methods for writing data to a text stream
+//							new BufferedWriter( // creates a buffer for a stream
+//							new FileWriter(stuffiesFile))); // connects the stream to a file
 //		// write data (records with element) to the stream
 //		out.println("1\tBear\tLarge\tRed");
 //		out.println("2\tCat\tSmall\tBlue");
