@@ -80,20 +80,20 @@ public class StuffyDB {
 		return stuffieID;
 	}
 	
-	public int getDBSize() {
-		int maxStuffie = 0;
+	public int getDBSize() { // create for loop that checks if stuffie object id > maxStuffie, 
+		int maxStuffieID = 0;
 		for(Stuffie stuffie : stuffies) {
-			if (stuffie.getId() > maxStuffie) {
-				maxStuffie = stuffie.getId();
+			if (stuffie.getId() > maxStuffieID) {
+				maxStuffieID = stuffie.getId();
 			}
 		}
-		return maxStuffie;
+		return maxStuffieID;
 	}
 	
 	// Review boolean method
 	public boolean checkForStuffy(int id) {
-		for (Stuffie stuffy : stuffies) {
-			if (stuffy.stuffyExists(id) == true)
+		for (Stuffie stuffie : stuffies) {
+			if (stuffie.stuffyExists(id) == true)
 				return true;
 		}
 		return false;

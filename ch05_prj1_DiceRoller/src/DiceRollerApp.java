@@ -13,10 +13,11 @@ public class DiceRollerApp {
 		int die1;
 		int die2;
 		int dietotal;
-		choice = getStringchoice(sc, "Roll the dice? (y/n): ", "y", "n");
+		choice = getStringchoice(sc, "\nRoll the dice? (y/n): ", "y", "n");
 		
 		while (choice.equalsIgnoreCase("y")) {
 		
+		// business logic
 		die1 = rollDice();	
 		die2 = rollDice();
 		dietotal = die1+die2;
@@ -30,13 +31,8 @@ public class DiceRollerApp {
 			System.out.println("Boxcars");
 		}
 		
-		// Prompt User Input
-			
+		// Prompt User Input	
 		choice = getStringchoice(sc, "Roll again? (y/n): ", "y", "n");
-			
-			
-		// Closing Message
-		
 			
 		}
 		System.out.println("Bye!");
@@ -51,8 +47,8 @@ public class DiceRollerApp {
 		boolean isValid = false;
 		do {
 			System.out.print(prompt);
-			s = sc.next();
-			sc.nextLine();
+			s = sc.next(); // stores user input until space
+			sc.nextLine(); // discard additional data entered on the line
 			
 			if (s.equalsIgnoreCase(choice1)|| s.equalsIgnoreCase(choice2)) {
 				isValid = true;

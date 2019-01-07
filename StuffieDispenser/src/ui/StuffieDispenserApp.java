@@ -29,17 +29,16 @@ public class StuffieDispenserApp {
 					System.out.println("\nThere are no more stuffies left in the dispenser.\n");
 					break;
 				}
-
+				// while loop hasStuffy not true
 				while (!hasStuffy == true) {
-					int stuffyID = (int) (Math.random() * db.getDBSize() + 1);
+					int stuffyID = (int) (Math.random() * db.getDBSize() + 1); // changed getDBSize method
 
-					if (db.checkForStuffy(stuffyID)) {
+					if (db.checkForStuffy(stuffyID)) { // checks if random StuffyID matches an ID in the ArrayList of stuffies
 						Stuffie stuffy = new Stuffie();
 						stuffy = db.grabStuffie(stuffyID);
 						System.out.println("\nYou grabbed a " + stuffy + "!\n");
 						hasStuffy = true;
 						break;
-
 					}
 				}
 				break;
