@@ -111,7 +111,16 @@ public class StuffieDispenserDBApp {
 					e.printStackTrace();
 				}
 			}
-			if (choice == 5)
+			if (choice == 5) {
+				// Get/Inspect a Stuffie but Don't REMOVE
+				System.out.println();
+				int id = c.getInt("\nEnter Stuffie ID: ");
+				Stuffie s = sdb.get(id);
+				System.out.println("You selected a" + s);
+				
+				
+			}
+			if (choice == 6)
 				System.out.println("\nThanks for Playing the Stuffie Dispenser Application!");
 		}
 
@@ -123,7 +132,8 @@ public class StuffieDispenserDBApp {
 		System.out.println("2 - Grab Stuffie"); // use the get and delete altogether
 		System.out.println("3 - Add A Stuffie");
 		System.out.println("4 - Update A Stuffie");
-		System.out.println("5 - Exit");
+		System.out.println("5 - Get/Inspect a Stuffie");
+		System.out.println("6 - Exit");
 	}
 
 }
