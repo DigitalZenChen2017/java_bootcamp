@@ -14,7 +14,7 @@ import business.Stuffie;
 public class StuffieDB implements DAO<Stuffie> {
 
 	@Override
-	public Stuffie get(String code) {
+	public Stuffie get(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

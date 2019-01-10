@@ -49,19 +49,26 @@ public class CountryApp {
 			}
 			if (option == 3) {
 				// Delete a Country
-				List<String> countries = cdb.getCountries(); // creates a List, String wrapper class object named "countries"
-				int maxID = 0;
-				
-				for(Countries : countries) {
-					
+				try {
+//					List<String> countries = cdb.getCountries(); // creates a List, String wrapper class object named "countries"
+					int id = Console.getInt("Enter ID: ");
+
+//					String deleteID = countries
+//					System.out.println(deleteID);
+					if (cdb.deleteCountry(id))
+						System.out.println("\n" + id + " was successfully deleted.");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					System.out.println("Error trying to delete country!");
+					e.printStackTrace();
 				}
-				
-				int id = Console.getIntWithinRange("Enter ID: ", min, max);
+//				if (cdb.deleteCountry(country))
+//					System.out.println();
 			}
 			if (option == 4) {
 				// Exit
 				System.out.println("Thanks for Using the Country Manager Application! Goodbye. :)");
-				cont = false;				
+				cont = false;
 			}
 
 		} while (cont == true);

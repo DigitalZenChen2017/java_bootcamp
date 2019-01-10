@@ -10,10 +10,10 @@ import java.util.List;
 
 public class CountryDB {
 	// list all countries
-	List<String> countries = new ArrayList<String>();
 
 	public List<String> getCountries() throws SQLException {
 		// declare ArrayList as a String
+		List<String> countries = new ArrayList<String>();
 		Connection conn = getConnection(); // create Connection object that calls the getConnection method
 		Statement smt = conn.createStatement(); // Declares smt variable as SQL statement
 		ResultSet rs = smt.executeQuery("SELECT * FROM country");
@@ -44,9 +44,16 @@ public class CountryDB {
 	}
 
 	// delete record from Country database
-	public boolean deleteCountry(String country) {
+	public boolean deleteCountry(int id) throws SQLException {
+		boolean success = false;
+		Connection connection = getConnection();
+		String query = "DELETE FROM Country WHERE ID = " + id;
+		Statement statement = connection.createStatement();
+		int rowCount = statement.executeUpdate(query);
 
-		return false;
+		if (rowCount > 0)
+			success = true;
+		return success;
 	}
 
 	// method that connects to MySQL database - return type Connection

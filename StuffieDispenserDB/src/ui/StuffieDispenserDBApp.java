@@ -116,9 +116,7 @@ public class StuffieDispenserDBApp {
 				System.out.println();
 				int id = c.getInt("\nEnter Stuffie ID: ");
 				Stuffie s = sdb.get(id);
-				System.out.println("You selected a" + s);
-				
-				
+				System.out.println("You selected a" + s);		
 			}
 			if (choice == 6)
 				System.out.println("\nThanks for Playing the Stuffie Dispenser Application!");
