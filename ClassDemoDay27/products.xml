@@ -1,0 +1,45 @@
+<!-- <?xml version="1.0"?>
+<Products>
+	<Product Code="java">
+		<Description>Murach's Beginning Java</Description>
+		<Price>49.5</Price>
+	</Product>
+	<Product Code="jsps">
+		<Description>Murach's Java Servlets and JSP</Description>
+		<Price>49.5</Price>
+	</Product>
+	<Product Code="mcb2">
+		<Description>Murach's Mainframe COBOL</Description>
+		<Price>59.5</Price>
+	</Product>
+</Products>
+ -->
+ 
+<?xml version="1.0"?>
+<Stuffies>
+	<Stuffie ID = 1>
+		<Type>"Pikachu"</Type>
+		<Color>""Yellow"</Color>
+		<Size>"Small"</Size>
+	</Stuffie>	
+	<Stuffie ID = 2>
+	<Type>"Pikachu"</Type>
+		<Color>""Yellow"</Color>
+		<Size>"Small"</Size>
+	<Stuffie ID = 3>
+	<Type>"Pikachu"</Type>
+		<Color>""Yellow"</Color>
+		<Size>"Small"</Size>
+	</Stuffie>	
+	
+	
+	</Stuffie>
+	
+
+
+</Stuffies>
+	
+
+
+
+</Guitar>

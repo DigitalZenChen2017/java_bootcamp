@@ -13,7 +13,6 @@ import business.Stuffie;
 
 public class StuffieDB implements DAO<Stuffie> {
 
-	@Override
 	public Stuffie get(int id) {
 		// TODO Auto-generated method stub
 		return null;
@@ -100,6 +99,12 @@ public class StuffieDB implements DAO<Stuffie> {
 		Connection connection = DriverManager.getConnection(dbURL, username, password);
 		return connection;
 
+	}
+
+	@Override
+	public Stuffie get(String code) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
