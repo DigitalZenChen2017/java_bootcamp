@@ -1,5 +1,6 @@
 package business;
 
+
 public class User {
 	// private instance variables or fields
 	private int id;
