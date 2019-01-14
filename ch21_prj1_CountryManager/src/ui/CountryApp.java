@@ -45,7 +45,6 @@ public class CountryApp {
 					System.out.println("Error trying to add" + country + "to the database.");
 					e.printStackTrace();
 				}
-
 			}
 			if (option == 3) {
 				// Delete a Country

@@ -13,7 +13,7 @@ public class CountryDB {
 
 	public List<String> getCountries() throws SQLException {
 		// declare ArrayList as a String
-		List<String> countries = new ArrayList<String>();
+		ArrayList<String> countries = new ArrayList<String>();
 		Connection conn = getConnection(); // create Connection object that calls the getConnection method
 		Statement smt = conn.createStatement(); // Declares smt variable as SQL statement
 		ResultSet rs = smt.executeQuery("SELECT * FROM country");
