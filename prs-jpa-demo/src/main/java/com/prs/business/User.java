@@ -1,8 +1,17 @@
-package business;
+package com.prs.business;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class User {
 	// private instance variables or fields
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // database must assign id
 	private int id;
+
 	private String userName;
 	private String password;
 	private String firstName;
@@ -12,6 +21,9 @@ public class User {
 	private boolean isReviewer;
 	private boolean isAdmin;
 
+	public User() {
+		super();
+	}
 	// generated constructor with EVERY instance variable
 	public User(int id, String userName, String password, String firstName, String lastName, String phoneNumber,
 			String email) {

@@ -25,7 +25,7 @@ public class StuffieDB implements DAO<Stuffie> {
 		Statement smt = conn.createStatement();
 		ResultSet rs = smt.executeQuery("SELECT * FROM stuffie");
 		while (rs.next()) {
-			// process stuffy
+			// process stuffy;
 			int id = rs.getInt(1);
 			String type = rs.getString(2);
 			String size = rs.getString(3);
@@ -104,7 +104,21 @@ public class StuffieDB implements DAO<Stuffie> {
 	@Override
 	public Stuffie get(String code) {
 		// TODO Auto-generated method stub
-		return null;
+		String sql = "select * from stuffy where id = ?";
+		Stuffie s = null;
+		
+		try (Connection conn = getConnection();
+			 PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				s = getStuffyFromResultSet(rs);
+			}
+		}
+		catch (SQLException se) {
+			throw se;
+		}
+		return s;
 	}
 
 }
