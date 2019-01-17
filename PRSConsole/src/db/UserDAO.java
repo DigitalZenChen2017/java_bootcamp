@@ -3,7 +3,9 @@ package db;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface DAO<User> { // interfaces that implemented in apps with CRUD functions
+import business.User;
+
+public interface UserDAO { // interfaces that implemented in apps with CRUD functions
     User get(int id) throws SQLException;
     List<User> getAll() throws SQLException;
     boolean add(User u) throws SQLException;

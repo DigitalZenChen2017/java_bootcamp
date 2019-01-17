@@ -9,45 +9,48 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import business.User;
+import business.Vendor;
 
 @SuppressWarnings("rawtypes")
-public class PRSDB implements DAO {
+public class VendorDB implements VendorDAO {
+	@SuppressWarnings("unchecked")
 	@Override
 	public List getAll() throws SQLException {
 		// TODO Auto-generated method stub
-		List<User> users = new ArrayList<User>(); // declare ArrayList as List
+		List<Vendor> vendors = new ArrayList<Vendor>(); // declare ArrayList as List
 		Connection conn = getConnection();
 //		Statement smt = conn.createStatement();
-		String query = "SELECT * FROM user";
+		String query = "SELECT * FROM vendor";
 		PreparedStatement ps = conn.prepareStatement(query);
 //		ResultSet rs = ps.executeQuery("SELECT * FROM user");
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) { // if Result Set next row/record exists, process each user
 			// process stuffy
 			int id = rs.getInt(1);
-			String userName = rs.getString(2);
-			String password = rs.getString(3);
-			String firstName = rs.getString(4);
-			String lastName = rs.getString(5);
-			String phoneNumber = rs.getString(6);
-			String email = rs.getString(7);
+			String code = rs.getString(2);
+			String name = rs.getString(3);
+			String address = rs.getString(4);
+			String city = rs.getString(5);
+			String state = rs.getString(6);
+			String zip = rs.getString(7);
+			String phone = rs.getString(7);
+			String email = rs.getString(8);
 
-			// create instance of User object
-			User u = new User(id, userName, password, firstName, lastName, phoneNumber, email);
-			users.add(u);
+			// create instance of Vendor object
+			Vendor v = new Vendor(id, code, name, address, city, state, zip, phone, email);
+			vendors.add(v);
 		}
 		rs.close();
-		return users;
+		return vendors;
 	}
 
-	public boolean add(User u) throws SQLException {
+	public boolean add(Vendor v) throws SQLException {
 		// TODO Auto-generated method stub
 		boolean success = false;
 		Connection connection = getConnection();
-		String query = "INSERT into user" + "(userName, password, firstName, lastName, phoneNumber, email)" + "VALUES('"
-				+ u.getUserName() + "','" + u.getPassword() + "','" + u.getFirstName() + "','" + u.getLastName() + "','"
-				+ u.getPhoneNumber() + "','" + u.getEmail() + "')";
+		String query = "INSERT into vendor" + "(code, name, address, city, state, zip, phoneNumber, email)" + "VALUES('"
+				+ v.getCode() + "','" + v.getName() + "','" + v.getAddress() + "','" + v.getCity() + "','"
+				+ v.getState() + "','" + v.getZip() + "','" + v.getPhone() + "','" + v.getEmail() + ")";
 		Statement statement = connection.createStatement();
 		int rowCount = statement.executeUpdate(query);
 
@@ -56,11 +59,13 @@ public class PRSDB implements DAO {
 		return success;
 	}
 
-	public boolean update(User u) throws SQLException {
+	public boolean update(Vendor v) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection connection = getConnection(); // create an instance of Connection object
-		String query = "UPDATE user SET " + " UserName = '" + u.getUserName() + "', " + " Password ='" + u.getPassword()
-				+ "' " + "WHERE ID = '" + u.getId() + "'";
+		String query = "UPDATE vendor SET " + " Code = '" + v.getCode() + "', " + " Name ='" + v.getName()
+				+ " Address ='" + v.getAddress() + " City ='" + v.getCity() + " State ='" + v.getState() + " Zip ='"
+				+ v.getZip() + " PhoneNumber ='" + v.getPhone() + " Email ='" + v.getEmail() + "WHERE ID = '"
+				+ v.getId() + "'";
 //		String query = "UPDATE stuffie SET " 
 //					   + "	Type = ?, "
 //					   + "  Color = ?, "
@@ -85,7 +90,7 @@ public class PRSDB implements DAO {
 		// TODO Auto-generated method stub
 		boolean success = false;
 		Connection connection = getConnection();
-		String query = "DELETE FROM user WHERE ID = " + id;
+		String query = "DELETE FROM vendor WHERE ID = " + id;
 		Statement statement = connection.createStatement();
 		int rowCount = statement.executeUpdate(query);
 
@@ -104,13 +109,7 @@ public class PRSDB implements DAO {
 		return connection;
 	}
 
-	@Override
-	public boolean add(Object u) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public User get(int id) throws SQLException {
+	public Vendor get(int id) throws SQLException {
 		// TODO Auto-generated method stub
 //		List<User> users = new ArrayList<User>(); // declare ArrayList as List
 //		Connection conn = getConnection();
@@ -133,8 +132,8 @@ public class PRSDB implements DAO {
 //		rs.close();
 //		return users;
 
-		String sql = "select * from user where id = ?"; // declare MySQL statement
-		User u = null; // create User object for getting object from List
+		String sql = "select * from vendor where id = ?"; // declare MySQL statement
+		Vendor v = null; // create Vendor object for getting object from List
 
 		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setInt(1, id);
@@ -142,26 +141,21 @@ public class PRSDB implements DAO {
 			if (rs.next()) {
 				// parse the result set and create an instance of Stuffy
 				id = rs.getInt(1);
-				String userName = rs.getString(2);
-				String password = rs.getString(3);
-				String firstName = rs.getString(4);
-				String lastName = rs.getString(5);
-				String phoneNumber = rs.getString(6);
-				String email = rs.getString(7);
+				String code = rs.getString(2);
+				String name = rs.getString(3);
+				String address = rs.getString(4);
+				String city = rs.getString(5);
+				String state = rs.getString(6);
+				String zip = rs.getString(7);
+				String phone = rs.getString(7);
+				String email = rs.getString(8);
 
-				u = new User(id, userName, password, firstName, lastName, phoneNumber, email);
-				return u;
+				v = new Vendor(id, code, name, address, city, state, zip, phone, email);
+				return v;
 			}
 		} catch (SQLException se) {
 			throw se;
 		}
-		return u;
+		return v;
 	}
-
-	@Override
-	public boolean update(Object u) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }
