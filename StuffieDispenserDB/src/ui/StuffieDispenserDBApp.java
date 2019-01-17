@@ -94,7 +94,7 @@ public class StuffieDispenserDBApp {
 						maxID = Math.max(maxID, s.getId()); // compares maxID to stuffie object id
 					}
 					// int id = c.getIntWithinRange("\nEnter Stuffie ID: ");
-					int id = c.getIntWithinRange("\nEnter Stuffie ID: ", 1, maxID);
+					int id = c.getIntWithinRange("\nEnter Stuffie ID: ", minID, maxID);
 					String type = c.getString("Enter Stuffie Type: ");
 					String color = c.getString("Enter Stuffie Color: ");
 					String size = c.getString("Enter Stuffie Size: ");

@@ -104,21 +104,27 @@ public class StuffieDB implements DAO<Stuffie> {
 	@Override
 	public Stuffie get(String code) {
 		// TODO Auto-generated method stub
-		String sql = "select * from stuffy where id = ?";
-		Stuffie s = null;
-		
-		try (Connection conn = getConnection();
-			 PreparedStatement ps = conn.prepareStatement(sql)) {
-			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
-			if (rs.next()) {
-				s = getStuffyFromResultSet(rs);
-			}
-		}
-		catch (SQLException se) {
-			throw se;
-		}
-		return s;
+		return null;
 	}
+
+//	@Override
+//	public Stuffie get(String code) {
+//		// TODO Auto-generated method stub
+//		String sql = "select * from stuffy where id = ?";
+//		Stuffie s = null;
+//		
+//		try (Connection conn = getConnection();
+//			 PreparedStatement ps = conn.prepareStatement(sql)) {
+//			ps.setInt(1, id);
+//			ResultSet rs = ps.executeQuery();
+//			if (rs.next()) {
+//				s = getStuffyFromResultSet(rs);
+//			}
+//		}
+//		catch (SQLException se) {
+//			throw se;
+//		}
+//		return s;
+//	}
 
 }

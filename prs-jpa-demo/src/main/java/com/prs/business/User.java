@@ -24,6 +24,7 @@ public class User {
 	public User() {
 		super();
 	}
+
 	// generated constructor with EVERY instance variable
 	public User(int id, String userName, String password, String firstName, String lastName, String phoneNumber,
 			String email) {
@@ -36,7 +37,7 @@ public class User {
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 	}
-	
+
 	// constructor used in PRSDB class
 	public User(String userName, String password, String firstName, String lastName, String phoneNumber, String email) {
 		this.userName = userName;
@@ -46,7 +47,6 @@ public class User {
 		this.phoneNumber = phoneNumber;
 		this.email = email;
 	}
-
 
 	// getters and setters
 	public int getId() {
@@ -126,7 +126,8 @@ public class User {
 //		return "User [id=" + id + ", userName=" + userName + ", password=" + password + ", firstName=" + firstName
 //				+ ", lastName=" + lastName + ", phoneNumber=" + phoneNumber + ", email=" + email + ", isReviewer="
 //				+ isReviewer + ", isAdmin=" + isAdmin + "]";
-		return id + " " + userName + " " + password + " " + firstName + " " + lastName + " " + phoneNumber + " " + email; 
+		return id + " " + userName + " " + password + " " + firstName + " " + lastName + " " + phoneNumber + " "
+				+ email;
 	}
 
 }

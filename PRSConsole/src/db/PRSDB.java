@@ -18,8 +18,11 @@ public class PRSDB implements DAO {
 		// TODO Auto-generated method stub
 		List<User> users = new ArrayList<User>(); // declare ArrayList as List
 		Connection conn = getConnection();
-		Statement smt = conn.createStatement();
-		ResultSet rs = smt.executeQuery("SELECT * FROM user");
+//		Statement smt = conn.createStatement();
+		String query = "SELECT * FROM user";
+		PreparedStatement ps = conn.prepareStatement(query);
+//		ResultSet rs = ps.executeQuery("SELECT * FROM user");
+		ResultSet rs = ps.executeQuery();
 		while (rs.next()) { // if Result Set next row/record exists, process each user
 			// process stuffy
 			int id = rs.getInt(1);
@@ -53,26 +56,44 @@ public class PRSDB implements DAO {
 		return success;
 	}
 
-	@Override
-	public boolean update(Object u) throws SQLException {
+	public boolean update(User u) throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		Connection connection = getConnection(); // create an instance of Connection object
+		String query = "UPDATE user SET " + " UserName = '" + u.getUserName() + "', " + " Password ='" + u.getPassword()
+				+ "' " + "WHERE ID = '" + u.getId() + "'";
+//		String query = "UPDATE stuffie SET " 
+//					   + "	Type = ?, "
+//					   + "  Color = ?, "
+//					   + "  Size = ? "
+//					   + "WHERE ID = ?";
+//		PreparedStatement ps = connection.prepareStatement(query);
+//		ps.setString(1, s.getType());
+//		ps.setString(2, s.getColor());
+//		ps.setString(3, s.getSize());
+//		int rowCount = ps.executeUpdate();
+		Statement statement = connection.createStatement(); // creates statement from String query to send to MySQL
+		int rowCount = statement.executeUpdate(query);
+
+		boolean success = false;
+
+		if (rowCount > 0)
+			success = true;
+		return success;
 	}
 
-	public boolean delete(User u) throws SQLException {
+	public boolean delete(int id) throws SQLException {
 		// TODO Auto-generated method stub
 		boolean success = false;
 		Connection connection = getConnection();
-		String query = "DELETE FROM user " + "WHERE id = ?";
+		String query = "DELETE FROM user WHERE ID = " + id;
 		Statement statement = connection.createStatement();
 		int rowCount = statement.executeUpdate(query);
 
 		if (rowCount > 0)
 			success = true;
 		return success;
-		
-	}
 
+	}
 
 	// method that connects to MySQL database
 	private Connection getConnection() throws SQLException {
@@ -118,7 +139,7 @@ public class PRSDB implements DAO {
 		try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			if (rs.next()) { 
+			if (rs.next()) {
 				// parse the result set and create an instance of Stuffy
 				id = rs.getInt(1);
 				String userName = rs.getString(2);
@@ -138,7 +159,7 @@ public class PRSDB implements DAO {
 	}
 
 	@Override
-	public boolean delete(Object u) throws SQLException {
+	public boolean update(Object u) throws SQLException {
 		// TODO Auto-generated method stub
 		return false;
 	}
