@@ -19,15 +19,23 @@ public class Product {
 	private Vendor vendor; // replace vendorID with instance of Vendor object
 	private String partNumber;
 	private String name;
-	private int price;
+	private double price;
 	private String unit;
 	private String photoPath;
 	
 	// generated constructor
-	public Product(int id, Vendor vendor, String partNumber, String name, int price, String unit, String photoPath) {
+	public Product(int id, Vendor vendor, String partNumber, String name, double price, String unit, String photoPath) {
 		super();
 		this.id = id;
-//		this.vendorID = vendorID;
+		this.vendor = vendor;
+		this.partNumber = partNumber;
+		this.name = name;
+		this.price = price;
+		this.unit = unit;
+		this.photoPath = photoPath;
+	}
+	
+	public Product(Vendor vendor, String partNumber, String name, double price, String unit, String photoPath) {
 		this.vendor = vendor;
 		this.partNumber = partNumber;
 		this.name = name;
@@ -74,11 +82,11 @@ public class Product {
 		this.name = name;
 	}
 
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 

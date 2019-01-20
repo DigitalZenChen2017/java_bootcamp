@@ -9,9 +9,11 @@ import javax.persistence.EntityTransaction;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.prs.business.Product;
 import com.prs.business.User;
 import com.prs.business.Vendor;
 import com.prs.db.DBUtil;
+import com.prs.db.ProductDB;
 import com.prs.db.UserDB;
 import com.prs.db.VendorDB;
 import com.prs.util.Console;
@@ -34,7 +36,7 @@ public class PRSJPADemoApplication {
 		while (mainChoice == false) {
 			/*
 			 * #1 First display the Main Menu which toggles between other sub-menus like
-			 * User and Vendor
+			 * User, Vendor, Product, PurchaseRequest, and PRLI
 			 */
 
 			displayMainMenu();
@@ -48,16 +50,16 @@ public class PRSJPADemoApplication {
 					// displayMenu method should be inside the while loop
 					displayUserMenu();
 					System.out.println();
-					int vendorSelection = c.getIntWithinRange("Enter An Option: ", 0, 6);
+					int userSelection = c.getIntWithinRange("Enter An Option: ", 0, 6);
 					// Get All Users
-					if (vendorSelection == 1) {
+					if (userSelection == 1) {
 						List<User> users = UserDB.getAll();
 						for (User u : users) { // for each User object out of ArrayList, do the statement below
 							System.out.println(u);
 						}
 					}
 					// Add a User
-					if (vendorSelection == 2) {
+					else if (userSelection == 2) {
 						String addedUserName = c.getString("Create Username: ");
 						String addedPassword = c.getString("Create Password: ");
 						String addedFirstName = c.getString("Enter Your First Name: ");
@@ -76,7 +78,7 @@ public class PRSJPADemoApplication {
 						}
 					}
 					// Update a User
-					if (vendorSelection == 3) {
+					else if (userSelection == 3) {
 						int updateID = c.getInt("Enter ID to Update: ");
 
 						User updatedUser = UserDB.getUserById(updateID); // creates instance of User object by id
@@ -90,7 +92,7 @@ public class PRSJPADemoApplication {
 						}
 					}
 					// Delete a User
-					if (vendorSelection == 4) {
+					else if (userSelection == 4) {
 						System.out.println();
 						int deleteID = c.getInt("Enter ID to Delete: ");
 						User deleteUser = UserDB.getUserById(deleteID); // creates instance of User object by id
@@ -99,7 +101,7 @@ public class PRSJPADemoApplication {
 						}
 					}
 					// Get a User
-					if (vendorSelection == 5) {
+					else if (userSelection == 5) {
 						System.out.println(); // space between "Enter Option" and "Enter ID #"
 						int inspectID = c.getInt("Enter ID #: ");
 						User user = null;
@@ -107,7 +109,7 @@ public class PRSJPADemoApplication {
 						System.out.println("\nYou selected ID # " + user);
 					}
 					// Return to Main Menu
-					if (vendorSelection == 6) {
+					if (userSelection == 6) {
 						subChoice = true;
 					}
 				}
@@ -124,7 +126,7 @@ public class PRSJPADemoApplication {
 						}
 					}
 					// Add a User
-					if (vendorSelection == 2) {
+					else if (vendorSelection == 2) {
 						String addedCode = c.getString("Create Code: ");
 						String addedName = c.getString("Create Name: ");
 						String addedAddress = c.getString("Enter Your Address: ");
@@ -148,7 +150,7 @@ public class PRSJPADemoApplication {
 						}
 					}
 					// Update a User
-					if (vendorSelection == 3) {
+					else if (vendorSelection == 3) {
 						int updateID = c.getInt("Enter ID to Update: ");
 
 						Vendor updatedVendor = VendorDB.getVendorById(updateID); // creates instance of User object by
@@ -163,7 +165,7 @@ public class PRSJPADemoApplication {
 						}
 					}
 					// Delete a User
-					if (vendorSelection == 4) {
+					else if (vendorSelection == 4) {
 						System.out.println();
 						int deleteID = c.getInt("Enter ID to Delete: ");
 						Vendor deleteVendor = VendorDB.getVendorById(deleteID); // creates instance of User object by id
@@ -172,7 +174,7 @@ public class PRSJPADemoApplication {
 						}
 					}
 					// Get a User
-					if (vendorSelection == 5) {
+					else if (vendorSelection == 5) {
 						System.out.println(); // space between "Enter Option" and "Enter ID #"
 						int inspectID = c.getInt("Enter ID #: ");
 						Vendor vendor = null;
@@ -184,7 +186,81 @@ public class PRSJPADemoApplication {
 						subChoice = true;
 					}
 				}
-
+				// PRODUCT SUB-MENU
+				if (mainSelection == 3) {
+					displayProductMenu();
+					System.out.println();
+					int productSelection = c.getIntWithinRange("Enter An Option: ", 0, 6);
+					// Get All Products
+					if (productSelection == 1) {
+						List<Product> products = ProductDB.getAll(); // create a List object of Product that calls the
+																		// getAll method
+						for (Product p : products) { // for each Vendor object out of ArrayList, do the statement below
+							System.out.println(p);
+						}
+					}
+					// Add a Product
+					else if (productSelection == 2) {
+						int addedVendorID = c.getInt("Select Vendor ID: ");
+						Vendor v = VendorDB.getVendorById(addedVendorID);
+						String addedPartNumber = c.getString("Create Part Number (: ");
+						String addedName = c.getString("Create Product Name: ");
+						Double addedPrice = c.getDouble("Create Product Price: ");
+						String addedUnit = c.getString("Create Unit: ");
+						String addedPhotoPath = c.getString("Create Photo Path: ");
+						Product addedProduct = new Product(v, addedPartNumber, addedName, addedPrice, addedUnit,
+								addedPhotoPath);
+						addedProduct.setPartNumber(addedPartNumber);
+						addedProduct.setName(addedName);
+						addedProduct.setPrice(addedPrice);
+						addedProduct.setUnit(addedUnit);
+						addedProduct.setPhotoPath(addedPhotoPath);
+						if (ProductDB.add(addedProduct)) {
+							System.out.println(
+									"\nID # " + addedProduct + " was successfully added to the Vendor database.");
+						}
+					}
+					// Update a Product
+					else if (productSelection == 3) {
+						int updateID = c.getInt("Enter ID to Update: ");
+						Product updatedProduct = ProductDB.getProductById(updateID); // i
+						String updatedVendorName = c.getString("Enter New Vendor Name: ");
+						updatedProduct.setName(updatedVendorName); // sets new updated user object
+						if (ProductDB.update(updatedProduct)) {
+							System.out.println("\nID # " + updatedProduct + " was successfully updated.");
+						}
+					}
+					// Delete a Product
+					else if (productSelection == 4) {
+						System.out.println();
+						int deleteID = c.getInt("Enter ID to Delete: ");
+						Product deleteProduct = ProductDB.getProductById(deleteID); // creates instance of User object
+																					// by id
+						if (ProductDB.delete(deleteProduct)) {
+							System.out.println("\nID # " + deleteProduct + " was successfully deleted.");
+						}
+					}
+					// Get a Product
+					else if (productSelection == 5) {
+						System.out.println(); // space between "Enter Option" and "Enter ID #"
+						int inspectID = c.getInt("Enter ID #: ");
+						Product product = null;
+						product = ProductDB.getProductById(inspectID);
+						System.out.println("\nYou selected ID # " + product);
+					}
+					// Get All Products By Vendor ID
+					else if (productSelection == 6) {
+						int vid = c.getInt("Enter Vendor ID: ");
+						List<Product> products = ProductDB.getAllProductsByVendorID(vid);
+						for (Product p : products) {
+							System.out.println(p);
+						}
+					}
+					// Return to Main Menu
+					else if (productSelection == 7) {
+						subChoice = true;
+					}
+				}
 			}
 
 		}
@@ -510,7 +586,6 @@ public class PRSJPADemoApplication {
 //			}
 //		}
 //	}
-
 	private static void displayMainMenu() {
 		System.out.println("\nMain Menu:\n");
 		System.out.println("1 - User CRUD Functions");
@@ -548,7 +623,8 @@ public class PRSJPADemoApplication {
 		System.out.println("3 - Update A Product");
 		System.out.println("4 - Delete A Product");
 		System.out.println("5 - Get/Inspect A Product");
-		System.out.println("6 - Return to Main Menu");
+		System.out.println("6 - Get Products By Vendor ID");
+		System.out.println("7 - Return to Main Menu");
 	}
 
 	private static void displayPurchaseRequestMenu() {
@@ -560,5 +636,4 @@ public class PRSJPADemoApplication {
 		System.out.println("\nPurchaseRequestLineItem Menu:\n");
 		System.out.println("1 - Display All Purchase Request Line Items");
 	}
-
 }
