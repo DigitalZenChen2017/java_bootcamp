@@ -46,6 +46,21 @@ public class PurchaseRequest {
 		this.reasonForRejection = reasonForRejection;
 	}
 
+	// full constructor w/o primary key id
+	public PurchaseRequest(User user, String description, String justification, LocalDate dateNeeded,
+			String deliveryMode, String status, double total, LocalDateTime submittedDate, String reasonForRejection) {
+		super();
+		this.user = user;
+		this.description = description;
+		this.justification = justification;
+		this.dateNeeded = dateNeeded;
+		this.deliveryMode = deliveryMode;
+		this.status = status;
+		this.total = total;
+		this.submittedDate = submittedDate;
+		this.reasonForRejection = reasonForRejection;
+	}
+
 	// constructor w/o arguments
 	public PurchaseRequest() {
 		super();
@@ -122,6 +137,14 @@ public class PurchaseRequest {
 
 	public void setSubmittedDate(LocalDateTime submittedDate) {
 		this.submittedDate = submittedDate;
+	}
+
+	public String getReasonForRejection() {
+		return reasonForRejection;
+	}
+
+	public void setReasonForRejection(String reasonForRejection) {
+		this.reasonForRejection = reasonForRejection;
 	}
 
 	@Override

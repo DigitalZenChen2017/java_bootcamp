@@ -25,8 +25,7 @@ public class PurchaseRequestLineItem {
 	@JoinColumn(name = "productID")
 	private Product product;
 	private int quantity;
-
-
+	
 	// generated constructor
 	public PurchaseRequestLineItem(int id, PurchaseRequest purchaseRequest, Product product, int quantity) {
 		super();
@@ -73,11 +72,9 @@ public class PurchaseRequestLineItem {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
 	@Override
 	public String toString() {
 		return "PurchaseRequestLineItem [id=" + id + ", purchaseRequest=" + purchaseRequest + ", product=" + product
 				+ ", quantity=" + quantity + "]";
 	}
-
 }

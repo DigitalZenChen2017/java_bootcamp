@@ -1,19 +1,21 @@
 package com.prs;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.prs.business.Product;
+import com.prs.business.PurchaseRequest;
+import com.prs.business.PurchaseRequestLineItem;
 import com.prs.business.User;
 import com.prs.business.Vendor;
-import com.prs.db.DBUtil;
 import com.prs.db.ProductDB;
+import com.prs.db.PurchaseRequestDB;
+import com.prs.db.PurchaseRequestLineItemDB;
 import com.prs.db.UserDB;
 import com.prs.db.VendorDB;
 import com.prs.util.Console;
@@ -29,8 +31,6 @@ public class PRSJPADemoApplication {
 
 		// define objects and variables
 		Console c = new Console();
-		UserDB udb = new UserDB();
-		VendorDB vdb = new VendorDB();
 		boolean mainChoice = false;
 
 		while (mainChoice == false) {
@@ -42,7 +42,7 @@ public class PRSJPADemoApplication {
 			displayMainMenu();
 			System.out.println();
 			boolean subChoice = false;
-			int mainSelection = c.getIntWithinRange("Select An Option: ", 1, 3);
+			int mainSelection = c.getIntWithinRange("Select An Option: ", 1, 6);
 
 			while (subChoice == false) {
 				// USER CRUD SUB-MENU
@@ -104,8 +104,7 @@ public class PRSJPADemoApplication {
 					else if (userSelection == 5) {
 						System.out.println(); // space between "Enter Option" and "Enter ID #"
 						int inspectID = c.getInt("Enter ID #: ");
-						User user = null;
-						user = UserDB.getUserById(inspectID);
+						User user = UserDB.getUserById(inspectID);
 						System.out.println("\nYou selected ID # " + user);
 					}
 					// Return to Main Menu
@@ -114,7 +113,7 @@ public class PRSJPADemoApplication {
 					}
 				}
 				// VENDOR CRUD SUB-MENU
-				if (mainSelection == 2) {
+				else if (mainSelection == 2) {
 					displayVendorMenu();
 					System.out.println();
 					int vendorSelection = c.getIntWithinRange("Enter An Option: ", 0, 6);
@@ -177,8 +176,7 @@ public class PRSJPADemoApplication {
 					else if (vendorSelection == 5) {
 						System.out.println(); // space between "Enter Option" and "Enter ID #"
 						int inspectID = c.getInt("Enter ID #: ");
-						Vendor vendor = null;
-						vendor = VendorDB.getVendorById(inspectID);
+						Vendor vendor = VendorDB.getVendorById(inspectID);
 						System.out.println("\nYou selected ID # " + vendor);
 					}
 					// Return to Main Menu
@@ -187,10 +185,10 @@ public class PRSJPADemoApplication {
 					}
 				}
 				// PRODUCT SUB-MENU
-				if (mainSelection == 3) {
+				else if (mainSelection == 3) {
 					displayProductMenu();
 					System.out.println();
-					int productSelection = c.getIntWithinRange("Enter An Option: ", 0, 6);
+					int productSelection = c.getIntWithinRange("Enter An Option: ", 0, 7);
 					// Get All Products
 					if (productSelection == 1) {
 						List<Product> products = ProductDB.getAll(); // create a List object of Product that calls the
@@ -203,27 +201,27 @@ public class PRSJPADemoApplication {
 					else if (productSelection == 2) {
 						int addedVendorID = c.getInt("Select Vendor ID: ");
 						Vendor v = VendorDB.getVendorById(addedVendorID);
-						String addedPartNumber = c.getString("Create Part Number (: ");
+						String addedPartNumber = c.getString("Create Part Number: ");
 						String addedName = c.getString("Create Product Name: ");
 						Double addedPrice = c.getDouble("Create Product Price: ");
 						String addedUnit = c.getString("Create Unit: ");
 						String addedPhotoPath = c.getString("Create Photo Path: ");
 						Product addedProduct = new Product(v, addedPartNumber, addedName, addedPrice, addedUnit,
 								addedPhotoPath);
-						addedProduct.setPartNumber(addedPartNumber);
-						addedProduct.setName(addedName);
-						addedProduct.setPrice(addedPrice);
-						addedProduct.setUnit(addedUnit);
-						addedProduct.setPhotoPath(addedPhotoPath);
+//						addedProduct.setPartNumber(addedPartNumber);
+//						addedProduct.setName(addedName);
+//						addedProduct.setPrice(addedPrice);
+//						addedProduct.setUnit(addedUnit);
+//						addedProduct.setPhotoPath(addedPhotoPath);
 						if (ProductDB.add(addedProduct)) {
 							System.out.println(
-									"\nID # " + addedProduct + " was successfully added to the Vendor database.");
+									"\nID # " + addedProduct + " was successfully added to the Product database.");
 						}
 					}
 					// Update a Product
 					else if (productSelection == 3) {
 						int updateID = c.getInt("Enter ID to Update: ");
-						Product updatedProduct = ProductDB.getProductById(updateID); // i
+						Product updatedProduct = ProductDB.getProductById(updateID); //
 						String updatedVendorName = c.getString("Enter New Vendor Name: ");
 						updatedProduct.setName(updatedVendorName); // sets new updated user object
 						if (ProductDB.update(updatedProduct)) {
@@ -244,8 +242,7 @@ public class PRSJPADemoApplication {
 					else if (productSelection == 5) {
 						System.out.println(); // space between "Enter Option" and "Enter ID #"
 						int inspectID = c.getInt("Enter ID #: ");
-						Product product = null;
-						product = ProductDB.getProductById(inspectID);
+						Product product = ProductDB.getProductById(inspectID);
 						System.out.println("\nYou selected ID # " + product);
 					}
 					// Get All Products By Vendor ID
@@ -260,332 +257,189 @@ public class PRSJPADemoApplication {
 					else if (productSelection == 7) {
 						subChoice = true;
 					}
+
+				}
+				// PURCHASE REQUEST SUB-MENU
+				else if (mainSelection == 4) {
+					displayPurchaseRequestMenu();
+					System.out.println();
+					int purchaseRequestSelection = c.getIntWithinRange("Enter An Option: ", 0, 7);
+					// Get All Purchase Requests
+					if (purchaseRequestSelection == 1) {
+						List<PurchaseRequest> purchaseRequests = PurchaseRequestDB.getAll(); // create a List object of
+																								// PurchaseRequest that
+																								// calls the
+						// getAll method
+						for (PurchaseRequest pr : purchaseRequests) { // for each Vendor object out of ArrayList, do the
+																		// statement below
+							System.out.println(pr);
+						}
+					}
+					// Add a Purchase Request
+					else if (purchaseRequestSelection == 2) {
+						int addedUserID = c.getInt("Select User ID: ");
+						User u = UserDB.getUserById(addedUserID); // instantiates User object by passing in user
+																	// prompted ID
+						String addedDescription = c.getString("Create Description: ");
+						String addedJustification = c.getString("Create Justification: ");
+						String dateNeeded = c.getString("Enter Date Needed By (yyyy-mm-dd): ");
+						LocalDate lddateNeeded = LocalDate.parse(dateNeeded);
+						String addedDeliveryMode = c.getString("Create Delivery Mode: ");
+						String addedStatus = c.getString("Create Status: ");
+						double addedTotal = c.getDouble("Create Total: ");
+//						String addedSubmittedDate = c.getString("Create Submitted Date: ");
+						LocalDateTime submittedDate = LocalDateTime.now();
+						String addedReasonForRejection = c.getString("Create Reason for Rejection: ");
+						PurchaseRequest addedPurchaseRequest = new PurchaseRequest(u, addedDescription,
+								addedJustification, lddateNeeded, addedDeliveryMode, addedStatus, addedTotal,
+								submittedDate, addedReasonForRejection);
+
+						if (PurchaseRequestDB.add(addedPurchaseRequest)) {
+							System.out.println("\nID # " + addedPurchaseRequest
+									+ " was successfully added to the PurchaseRequest database.");
+						}
+					}
+					// Update a Purchase Request
+					else if (purchaseRequestSelection == 3) {
+						int updateID = c.getInt("Enter ID to Update: ");
+						PurchaseRequest updatedPurchaseRequest = PurchaseRequestDB.getPurchaseRequestById(updateID); //
+						String updatedDescription = c.getString("Enter New Description: ");
+						String updatedDateNeeded = c.getString("Enter New Date Needed (yyyy-mm-dd): ");
+						LocalDate lddateNeeded = LocalDate.parse(updatedDateNeeded);
+						updatedPurchaseRequest.setDescription(updatedDescription);
+						updatedPurchaseRequest.setDateNeeded(lddateNeeded);
+						if (PurchaseRequestDB.update(updatedPurchaseRequest)) {
+							System.out.println("\nID # " + updatedPurchaseRequest + " was successfully updated.");
+						}
+					}
+					// Delete a Purchase Request
+					else if (purchaseRequestSelection == 4) {
+						System.out.println();
+						int deleteID = c.getInt("Enter ID to Delete: ");
+						PurchaseRequest deletePurchaseRequest = PurchaseRequestDB.getPurchaseRequestById(deleteID);
+						if (PurchaseRequestDB.delete(deletePurchaseRequest)) {
+							System.out.println("\nID # " + deletePurchaseRequest + " was successfully deleted.");
+						}
+					}
+					// Get a Purchase Request
+					else if (purchaseRequestSelection == 5) {
+						System.out.println(); // space between "Enter Option" and "Enter ID #"
+						int inspectID = c.getInt("Enter ID #: ");
+						PurchaseRequest purchaseRequest = PurchaseRequestDB.getPurchaseRequestById(inspectID);
+						System.out.println("\nYou selected ID # " + purchaseRequest);
+					}
+					// Get All Purchase Request By User ID
+					else if (purchaseRequestSelection == 6) {
+						int userID = c.getInt("Enter User ID: ");
+						List<PurchaseRequest> purchaseRequestsByUserID = PurchaseRequestDB
+								.getAllPurchaseRequestsByUserID(userID);
+						for (PurchaseRequest pr : purchaseRequestsByUserID) {
+							System.out.println(pr);
+						} // for each PurchaseRequest object pr out of List purchaseRequestByUserID, print
+							// object toString()
+					}
+					// Return to Main Menu
+					else if (purchaseRequestSelection == 7) {
+						subChoice = true;
+					}
+				}
+				// PURCHASE REQUEST LINE ITEM SUB-MENU
+				else if (mainSelection == 5) {
+					displayPurchaseRequestLineItemMenu();
+					System.out.println();
+					int purchaseRequestLineItemSelection = c.getIntWithinRange("Enter An Option: ", 0, 7);
+					// Get All Purchase Requests
+					if (purchaseRequestLineItemSelection == 1) {
+						List<PurchaseRequestLineItem> purchaseRequestLineItems = PurchaseRequestLineItemDB.getAll(); // create
+																														// a
+																														// List
+																														// object
+																														// of
+						// PurchaseRequest that
+						// calls the
+						// getAll method
+						for (PurchaseRequestLineItem prli : purchaseRequestLineItems) { // for each PRLI object out of
+																						// ArrayList, do the
+							// statement below
+							System.out.println(prli);
+						}
+					}
+					// Add a Purchase Request Line Item
+					else if (purchaseRequestLineItemSelection == 2) {
+						int addedPurchaseRequestID = c.getInt("Select Purchase Request ID: ");
+						PurchaseRequest addedPR = PurchaseRequestDB.getPurchaseRequestById(addedPurchaseRequestID);
+						int addedProductID = c.getInt("Select Product ID: "); // selected Product ID
+						Product addedProduct = ProductDB.getProductById(addedProductID);
+						int quantity = c.getInt("Enter Quantity: ");
+						PurchaseRequestLineItem addedPurchaseRequestLineItem = new PurchaseRequestLineItem();
+						addedPurchaseRequestLineItem.setPurchaseRequest(addedPR);
+						addedPurchaseRequestLineItem.setProduct(addedProduct);
+						addedPurchaseRequestLineItem.setQuantity(quantity);
+						if (PurchaseRequestLineItemDB.add(addedPurchaseRequestLineItem)) {
+							System.out.println("\nID # " + addedPurchaseRequestLineItem
+									+ " was successfully added to the PurchaseRequest database.");
+						}
+					}
+					// Update a Purchase Request Line Item
+					else if (purchaseRequestLineItemSelection == 3) {
+						int updateID = c.getInt("Enter ID to Update: ");
+						PurchaseRequestLineItem updatedPurchaseRequestLineItem = PurchaseRequestLineItemDB
+								.getPurchaseRequestLineItemById(updateID);
+						int updatedPurchaseRequestID = c.getInt("Enter New Purchase Request ID: ");
+						PurchaseRequest updatedPR = PurchaseRequestDB.getPurchaseRequestById(updatedPurchaseRequestID);
+						int updatedProductID = c.getInt("Enter New Product ID: ");
+						Product updatedProduct = ProductDB.getProductById(updatedProductID);
+						int updatedQuantity = c.getInt("Enter New Quantity: ");
+						updatedPurchaseRequestLineItem.setPurchaseRequest(updatedPR);
+						updatedPurchaseRequestLineItem.setProduct(updatedProduct);
+						updatedPurchaseRequestLineItem.setQuantity(updatedQuantity);
+						if (PurchaseRequestLineItemDB.update(updatedPurchaseRequestLineItem)) {
+							System.out
+									.println("\nID # " + updatedPurchaseRequestLineItem + " was successfully updated.");
+						}
+					}
+					// Delete a Purchase Request Line Item
+					else if (purchaseRequestLineItemSelection == 4) {
+						System.out.println();
+						int deleteID = c.getInt("Enter ID to Delete: ");
+						PurchaseRequestLineItem deletePurchaseRequestLineItem = PurchaseRequestLineItemDB
+								.getPurchaseRequestLineItemById(deleteID);
+						if (PurchaseRequestLineItemDB.delete(deletePurchaseRequestLineItem)) {
+							System.out
+									.println("\nID # " + deletePurchaseRequestLineItem + " was successfully deleted.");
+						}
+					}
+					// Get a Purchase Request Line Item
+					else if (purchaseRequestLineItemSelection == 5) {
+						System.out.println(); // space between "Enter Option" and "Enter ID #"
+						int inspectID = c.getInt("Enter ID #: ");
+						PurchaseRequestLineItem purchaseRequestLineItem = PurchaseRequestLineItemDB
+								.getPurchaseRequestLineItemById(inspectID);
+						System.out.println("\nYou selected ID # " + purchaseRequestLineItem);
+					}
+					// Get All Purchase Request Line Items By Purchase Request ID
+					else if (purchaseRequestLineItemSelection == 6) {
+						int purchaseRequestID = c.getInt("Enter Purchase Request ID: ");
+						List<PurchaseRequestLineItem> purchaseRequestLineItemsByPRID = PurchaseRequestLineItemDB
+								.getAllPurchaseRequestLineItemsByPurchaseRequestID(purchaseRequestID);
+						for (PurchaseRequestLineItem prli : purchaseRequestLineItemsByPRID) {
+							System.out.println(prli);
+						} // for each PurchaseRequestLineItem object prli out of List
+							// purchaseRequestLineItemsByPRID, print
+							// object toString()
+					}
+					// Return to Main Menu
+					else if (purchaseRequestLineItemSelection == 7) {
+						subChoice = true;
+					}
+				} else if (mainSelection == 6) {
+					subChoice = true;
+					mainChoice = true;
 				}
 			}
-
 		}
-
-//				// VENDOR SUB-MENU
-//				if (mainSelection == 2) {
-//					displayVendorMenu();
-//					System.out.println();
-//					int vendorSelection = c.getIntWithinRange("Enter An Option: ", 0, 6);
-//					if (vendorSelection == 1) {
-////			case 1: // Display All Vendors in the PRS System
-//						try {
-//							System.out.println(); // print space between displayMenu and displayed list
-//							@SuppressWarnings("unchecked")
-//							List<Vendor> vendors = vdb.getAll(); // create List object of users and store
-//							for (Vendor v : vendors) {
-//								System.out.println(v.toString());
-//							}
-//						} catch (SQLException e) {
-//							// TODO Auto-generated catch block
-//							System.out.println("Error trying to connect to PRS database.");
-//							e.printStackTrace();
-//						}
-//						if (vendorSelection == 2) {
-////							String addedCode = c.getString("Create Code: ");
-////							String addedName = c.getString("Create Name: ");
-////							String addedAddress = c.getString("Enter Your Address: ");
-////							String addedCity = c.getString("Enter Your City: ");
-////							String addedState = c.getString("Enter Your State: ");
-////							String addedZip = c.getString("Enter Your Zip Code: ");
-////							String addedPhoneNumber = c.getString("Enter Your Phone #: ");
-////							String addedEmail = c.getString("Enter Your E-Mail: ");
-////							// create new instance of User object
-////							Vendor v = new Vendor(addedCode, addedName, addedAddress, addedCity, addedState, addedZip,
-////									addedPhoneNumber, addedEmail);
-
-//							try {
-//								if (vdb.add(v)) {
-//									System.out.println(
-//											"ID # " + v.toString() + " was successfully added to the Vendor database.");
-//								}
-//							} catch (SQLException e) {
-//								// TODO Auto-generated catch block
-//								System.out.println("Error trying to add" + "ID # " + v.toString() + "to PRS database.");
-//								e.printStackTrace();
-//							}
-
 	}
 
-//				break;
-////			case 2: // Add A User
-//					if (vendorSelection == 2) {
-//						String addedUserName = c.getString("Create Username: ");
-//						String addedPassword = c.getString("Create Password: ");
-//						String addedFirstName = c.getString("Enter Your First Name: ");
-//						String addedLastName = c.getString("Enter Your Last Name: ");
-//						String addedPhoneNumber = c.getString("Enter Phone #: ");
-//						String addedEmail = c.getString("Enter E-Mail: ");
-//
-//						// create new instance of User object
-//						User u = new User(addedUserName, addedPassword, addedFirstName, addedLastName, addedPhoneNumber,
-//								addedEmail);
-//
-//						try {
-//							if (udb.add(u)) {
-//								System.out.println(
-//										"ID # " + u.toString() + " was successfully added to the User database.");
-//							}
-//						} catch (SQLException e) {
-//							// TODO Auto-generated catch block
-//							System.out.println("Error trying to add" + "ID # " + u.toString() + "to PRS database.");
-//							e.printStackTrace();
-//						}
-//					}
-////				break;
-////			case 3: // Update A User
-//					if (vendorSelection == 3) {
-//						try {
-//							List<User> users; // Declare a List named users
-//							users = udb.getAll(); // create List of user objects from SQL result set
-//							int minID = 1;
-//							int maxID = 0;
-//							for (User user : users) { // loop there each user and set maxID equals to highest ID #
-//								maxID++;
-//								maxID = Math.max(maxID, user.getId()); // compares maxID to stuffie object id
-//							}
-//							int updateID = c.getIntWithinRange("Enter ID to Update: ", minID, maxID);
-//							String updatedUserName = c.getString("Enter New Username: ");
-//							String updatedPassword = c.getString("Enter New Password: ");
-//							String updatedFirstName = c.getString("Enter New First Name: ");
-//							String updatedLastName = c.getString("Enter New Last Name: ");
-//							String updatedPhoneNumber = c.getString("Enter New Phone #: ");
-//							String updatedEmail = c.getString("Enter New E-Mail: ");
-//
-//							User updatedUser = new User(updateID, updatedUserName, updatedPassword, updatedFirstName,
-//									updatedLastName, updatedPhoneNumber, updatedEmail); // create new Updated User
-//																						// object
-//
-//							if (udb.update(updatedUser)) {
-//								System.out.println("\nID # " + updatedUser.toString() + " was successfully updated.");
-//							}
-//						} catch (SQLException e) {
-//							// TODO Auto-generated catch block
-//							System.out.println("Error trying to update User!");
-//							e.printStackTrace();
-//						}
-//					}
-////				break;
-////			case 4: // Delete A User
-//					if (vendorSelection == 4) {
-//						System.out.println();
-//						try {
-//							@SuppressWarnings("unchecked")
-//							List<User> users = udb.getAll();
-//							int minID = 1;
-//							int maxID = 0;
-//							for (User user : users) {
-//								maxID++;
-//								maxID = Math.max(maxID, user.getId());
-//							}
-//							int deleteID = c.getIntWithinRange("Enter User ID # to Delete: ", minID, maxID);
-//
-//							if (udb.delete(deleteID)) {
-//								System.out.println("\nID # " + deleteID + " was successfully deleted.");
-//							}
-//						} catch (SQLException s) {
-//							s.printStackTrace();
-//						}
-//					}
-////				break;
-////			case 5: // Inspect A User
-//					if (vendorSelection == 5) {
-//						System.out.println(); // space between "Enter Option" and "Enter ID #"
-//						int inspectID = c.getInt("Enter ID #: ");
-//						User user = null;
-//						try {
-//							user = udb.get(inspectID);
-//						} catch (SQLException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//						System.out.println("\nYou selected ID # " + user);
-//					}
-////				break;
-//			case 6: // Return to Main Menu
-//					if (vendorSelection == 6) {
-//						subChoice = true;
-//					}
-//				}
-	// VENDOR SUB-MENU
-//				if (mainSelection == 2) {
-//					displayVendorMenu();
-//					System.out.println();
-//					int vendorSelection = c.getIntWithinRange("Enter An Option: ", 0, 6);
-//					if (vendorSelection == 1) {
-////			case 1: // Display All Vendors in the PRS System
-//						try {
-//							System.out.println(); // print space between displayMenu and displayed list
-//							@SuppressWarnings("unchecked")
-//							List<Vendor> vendors = vdb.getAll(); // create List object of users and store
-//							for (Vendor v : vendors) {
-//								System.out.println(v.toString());
-//							}
-//						} catch (SQLException e) {
-//							// TODO Auto-generated catch block
-//							System.out.println("Error trying to connect to PRS database.");
-//							e.printStackTrace();
-//						}
-//				break;
-//			case 2: // Add A Vendor
-//					if (vendorSelection == 2) {
-//						String addedCode = c.getString("Create Code: ");
-//						String addedName = c.getString("Create Name: ");
-//						String addedAddress = c.getString("Enter Your Address: ");
-//						String addedCity = c.getString("Enter Your City: ");
-//						String addedState = c.getString("Enter Your State: ");
-//						String addedZip = c.getString("Enter Your Zip Code: ");
-//						String addedPhoneNumber = c.getString("Enter Your Phone #: ");
-//						String addedEmail = c.getString("Enter Your E-Mail: ");
-//						// create new instance of User object
-//						Vendor v = new Vendor(addedCode, addedName, addedAddress, addedCity, addedState, addedZip,
-//								addedPhoneNumber, addedEmail);
-
-//						try {
-//							if (vdb.add(v)) {
-//								System.out.println(
-//										"ID # " + v.toString() + " was successfully added to the Vendor database.");
-//							}
-//						} catch (SQLException e) {
-//							// TODO Auto-generated catch block
-//							System.out.println("Error trying to add" + "ID # " + v.toString() + "to PRS database.");
-//							e.printStackTrace();
-//						}
-//					}
-//				break;
-//			case 3: // Update A Vendor
-//					if (vendorSelection == 3) {
-//						try {
-//							List<Vendor> vendors; // Declare a List named users
-//							vendors = vdb.getAll(); // create List of user objects from SQL result set
-//							int minID = 1;
-//							int maxID = 0;
-//							for (Vendor vendor : vendors) { // loop there each user and set maxID equals to highest
-//															// ID #
-//								maxID++;
-//								maxID = Math.max(maxID, vendor.getId()); // compares maxID to Vendor object id
-//							}
-//							int updateID = c.getIntWithinRange("Enter ID to Update: ", minID, maxID);
-//							String updatedCode = c.getString("Enter New Code: ");
-//							String updatedName = c.getString("Enter New Name: ");
-//							String updatedAddress = c.getString("Enter New Address: ");
-//							String updatedCity = c.getString("Enter New City: ");
-//							String updatedState = c.getString("Enter New State #: ");
-//							String updatedZip = c.getString("Enter New Zip: ");
-//							String updatedPhoneNumber = c.getString("Enter New Phone #: ");
-//							String updatedEmail = c.getString("Enter New Email: ");
-
-	// create new updated Vendor object
-//							Vendor updatedVendor = new Vendor(updateID, updatedCode, updatedName, updatedAddress,
-//									updatedCity, updatedState, updatedZip, updatedPhoneNumber, updatedEmail);
-
-//							if (vdb.update(updatedVendor)) {
-//								System.out.println("\nID # " + updatedVendor.toString() + " was successfully updated.");
-//							}
-//						} catch (SQLException e) {
-//							// TODO Auto-generated catch block
-//							System.out.println("Error trying to update Vendor!");
-//							e.printStackTrace();
-//						}
-//					}
-//				break;
-////			case 4: // Delete A Vendor
-//					if (vendorSelection == 4) {
-//						System.out.println();
-//						try {
-//							@SuppressWarnings("unchecked")
-//							List<Vendor> vendors = vdb.getAll(); // create list of ALL vendors from SQL database
-//							int minID = 1;
-//							int maxID = 0;
-//							for (Vendor vendor : vendors) { // for each Vendor object from ArrayList of vendors do
-//															// the
-//															// following
-//								maxID++;
-//								maxID = Math.max(maxID, vendor.getId()); // compares maxID to assigned Vendor object
-//																			// ID
-//							}
-//							int deleteID = c.getIntWithinRange("Enter User ID # to Delete: ", minID, maxID);
-//
-//							if (vdb.delete(deleteID)) {
-//								System.out.println("\nID # " + deleteID + " was successfully deleted.");
-//							}
-//						} catch (SQLException s) {
-//							s.printStackTrace();
-//						}
-//					}
-//				break;
-//			case 5: // Inspect A Vendor
-//					if (vendorSelection == 5) {
-//						System.out.println(); // space between "Enter Option" and "Enter ID #"
-//						int inspectID = c.getInt("Enter ID #: ");
-//						Vendor vendor = null;
-//						try {
-//							vendor = vdb.get(inspectID);
-//						} catch (SQLException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//						System.out.println("\nYou selected ID # " + vendor);
-//					}
-//				break;
-////			case 6: // Exit Menu
-//					if (vendorSelection == 6) {
-//						subChoice = true;
-//					}
-//
-//				}
-
-//				if (mainSelection == 3) {
-//					System.out.println("\nThanks For Using the Purchase Request System! YOU ROCK!");
-//					mainChoice = true;
-//					subChoice = true;
-//				}
-//
-//			}
-//		}
-//	}
-
-//		while (mainChoice = false) {
-//			displayMainMenu();
-//			boolean subChoice = false;
-//			int mainSelection = c.getIntWithinRange("Enter Option: ", 0, 10);
-//			if (mainSelection == 1) {
-//				// get all users
-//				List<User> users = UserDB.getAll();
-//				for (User u : users) {
-//					System.out.println(u);
-//				}
-//			}
-//			if (mainSelection == 2) {
-//				// get/inspect user
-//				int id = c.getInt("Enter ID: ");
-//				User u = new User();
-//				u = UserDB.getUserById(id);
-//				System.out.println(u);
-//
-//				if (u == null) {
-//					System.out.println("No User Found for ID: " + id);
-//				} else {
-//					if (UserDB.delete(u)) {
-//						// success
-//						System.out.println("User successfully deleted.");
-//					}
-//				}
-//
-//			}
-//			if (mainSelection == 3) {
-//				// delete user
-//				int deleteID = c.getInt("Enter User ID to Delete: ");
-//
-//				if (UserDB.delete(deleteID)) {
-//					System.out.println("User has successfully deleted.");
-//				}
-//			}
-//		}
-//	}
 	private static void displayMainMenu() {
 		System.out.println("\nMain Menu:\n");
 		System.out.println("1 - User CRUD Functions");
@@ -628,12 +482,24 @@ public class PRSJPADemoApplication {
 	}
 
 	private static void displayPurchaseRequestMenu() {
-		System.out.println("\nPurchaseRequest Menu:\n");
+		System.out.println("\nPurchase Request Menu:\n");
 		System.out.println("1 - Display All Purchase Requests");
+		System.out.println("2 - Add A Purchase Request");
+		System.out.println("3 - Update A Purchase Request");
+		System.out.println("4 - Delete A Purchase Request");
+		System.out.println("5 - Get/Inspect A Purchase Request");
+		System.out.println("6 - Get Purchase Request By User ID");
+		System.out.println("7 - Return to Main Menu");
 	}
 
 	private static void displayPurchaseRequestLineItemMenu() {
-		System.out.println("\nPurchaseRequestLineItem Menu:\n");
+		System.out.println("\nPurchase Request Line Item Menu:\n");
 		System.out.println("1 - Display All Purchase Request Line Items");
+		System.out.println("2 - Add A Purchase Request Line Item");
+		System.out.println("3 - Update A Purchase Request Line Item");
+		System.out.println("4 - Delete A Purchase Request Line Item");
+		System.out.println("5 - Get/Inspect A Purchase Request Line Item");
+		System.out.println("6 - Get Purchase Request Line Item By Purchase Request ID");
+		System.out.println("7 - Return to Main Menu");
 	}
 }
