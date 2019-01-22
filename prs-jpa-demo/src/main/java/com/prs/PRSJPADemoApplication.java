@@ -500,6 +500,7 @@ public class PRSJPADemoApplication {
 		System.out.println("4 - Delete A Purchase Request Line Item");
 		System.out.println("5 - Get/Inspect A Purchase Request Line Item");
 		System.out.println("6 - Get Purchase Request Line Item By Purchase Request ID");
-		System.out.println("7 - Return to Main Menu");
+		System.out.println("7 - Get Purchase Request Line Item By Purchase Request ID");
+		System.out.println("8 - Return to Main Menu");
 	}
 }
