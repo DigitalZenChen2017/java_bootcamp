@@ -28,10 +28,10 @@ public class UserDB {
 	public static List<User> getAll() {
 		EntityManager em = DBUtil.getEmFactory().createEntityManager(); // declare EntityManager object
 		List<User> users = new ArrayList<>();
-		String query = "SELECT u FROM User u";
+		String query = "SELECT u FROM User u"; // selects all users from user table
 		try {
 			Query q = em.createQuery(query, User.class); // step 2, Create SQL statement
-			users = q.getResultList();
+			users = q.getResultList(); // set List of users equal to the ResultList of users
 			if (users == null || users.isEmpty())
 				users = null;
 		} finally {
