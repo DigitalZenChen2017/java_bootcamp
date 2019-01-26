@@ -1,4 +1,4 @@
-package hello;
+package hello.business;
 
 import org.springframework.data.repository.CrudRepository;
 
