@@ -8,12 +8,12 @@ public final class Stuffie {
 	private String type;
 	private String color;
 	private String size;
-	
+
 	// generate constructor with fields
 	public Stuffie() {
-		
+
 	}
-	
+
 	// constructor used in addStuffie method
 	public Stuffie(StuffieDB db, String type, String color, String size) {
 		super();
@@ -22,7 +22,7 @@ public final class Stuffie {
 		this.color = color;
 		this.size = size;
 	}
-	
+
 	// constructor for populating initial 10 stuffy objects
 	public Stuffie(int id, String type, String color, String size) {
 		this.id = id;
@@ -30,7 +30,7 @@ public final class Stuffie {
 		this.color = color;
 		this.size = size;
 	}
-	
+
 	public Stuffie(int id) {
 		super();
 		this.id = id;
@@ -72,14 +72,12 @@ public final class Stuffie {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	
-	public boolean stuffyExists(int id) { 
+
+	public boolean stuffyExists(int id) {
 		if (this.id == id) {
 			return true;
 		}
-			return false;
+		return false;
 	}
-	
-	
-	
+
 }

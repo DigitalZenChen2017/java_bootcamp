@@ -1,4 +1,4 @@
-package hello.util;
+package com.StuffieDispenser.util;
 
 import java.util.ArrayList;
 
@@ -8,8 +8,7 @@ public class JsonResponse {
 	private Object data = null;
 	private Object errors = null;
 	private Object meta = null;
-	
-	// 3 constructors: Object, Exception, and String
+
 	// Good response - single or multiple resource
 	public JsonResponse(Object d) {
 		data = d;
