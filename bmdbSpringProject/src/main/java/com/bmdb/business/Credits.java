@@ -16,7 +16,7 @@ public class Credits {
 	@JoinColumn(name = "movieID")
 	private Movie movie;
 	@ManyToOne
-	@JoinColumn(name = "genreID")
+	@JoinColumn(name = "actorID")
 	private Actor actor;
 	private String charName;
 
