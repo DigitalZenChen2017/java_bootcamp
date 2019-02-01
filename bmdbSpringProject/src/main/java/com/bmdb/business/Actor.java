@@ -1,4 +1,4 @@
-package bmdb.business;
+package com.bmdb.business;
 
 import java.util.Date;
 

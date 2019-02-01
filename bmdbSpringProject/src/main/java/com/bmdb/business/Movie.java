@@ -1,4 +1,4 @@
-package bmdb.business;
+package com.bmdb.business;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

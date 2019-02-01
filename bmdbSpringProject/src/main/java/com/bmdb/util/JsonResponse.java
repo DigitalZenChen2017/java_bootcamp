@@ -1,4 +1,4 @@
-package bmdb.util;
+package com.bmdb.util;
 
 import java.util.ArrayList;
 

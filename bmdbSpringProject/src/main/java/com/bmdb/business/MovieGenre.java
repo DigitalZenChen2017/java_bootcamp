@@ -1,4 +1,4 @@
-package bmdb.business;
+package com.bmdb.business;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,17 +8,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity // This tells Hibernate to make a table out of this class
-public class Credits {
+public class MovieGenre {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@ManyToOne
-	@JoinColumn(name = "id")
-	private Movie movie;
+	@JoinColumn(name = "movieID")
+	private Movie movie; // specifies many Movie Genres for one movie
 	@ManyToOne
-	@JoinColumn(name = "id")
-	private Actor actor;
-	private String charName;
+	@JoinColumn(name = "genreID") 
+	private Genre genre; 
 
 	public int getId() {
 		return id;
@@ -36,20 +35,11 @@ public class Credits {
 		this.movie = movie;
 	}
 
-	public Actor getActor() {
-		return actor;
+	public Genre getGenre() {
+		return genre;
 	}
 
-	public void setActor(Actor actor) {
-		this.actor = actor;
+	public void setGenre(Genre genre) {
+		this.genre = genre;
 	}
-
-	public String getCharName() {
-		return charName;
-	}
-
-	public void setCharName(String charName) {
-		this.charName = charName;
-	}
-
 }
