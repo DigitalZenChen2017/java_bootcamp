@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bmdb.business.Credits;
 import com.bmdb.business.CreditsRepository;
+import com.bmdb.business.Movie;
 import com.bmdb.util.JsonResponse;
 
 @Controller
@@ -81,30 +82,23 @@ public class CreditController {
 
 	// add an Credits
 	@PostMapping(path = "/")
-	public @ResponseBody JsonResponse addNewCredits(@RequestBody Credits a) {
+	public @ResponseBody JsonResponse addNewCredits(@RequestBody Credits c) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET (read) or @RequestBody
-		// POST (update and delete)
-		// request
-//		return u;
-//		JsonResponse jr = null;
-//		jr = JsonResponse.getInstance(saveCredits(u));
-		return saveCredits(a);
+		return saveCredits(c);
 	}
 
-	// update an Credits - changed from Post to PutMapping
+	// update a Credits object - changed from Post to PutMapping
 	@PutMapping("/{id}")
 	public @ResponseBody JsonResponse updateCredits(@PathVariable int id, @RequestBody Credits a) {
-//		u = creditsRepository.save(u);
 		return saveCredits(a);
-//		return u;
 	}
 
-	private @ResponseBody JsonResponse saveCredits(Credits a) {
+	private @ResponseBody JsonResponse saveCredits(Credits c) {
 		JsonResponse jr = null;
 		try {
-			creditsRepository.save(a);
-			jr = JsonResponse.getInstance(a);
+			creditsRepository.save(c);
+			jr = JsonResponse.getInstance(c);
 		} catch (DataIntegrityViolationException dive) {
 			// TODO better way to handle exceptions
 			jr = JsonResponse.getInstance(dive);
@@ -113,14 +107,14 @@ public class CreditController {
 		return jr;
 	}
 
-	// delete an Credits
+	// delete a Credits object
 	@DeleteMapping("/{id}")
 	public @ResponseBody JsonResponse removeUser(@PathVariable int id) { // remove the Credits by id
 		JsonResponse jr = null;
-		Optional<Credits> a = creditsRepository.findById(id);
-		if (a.isPresent()) {
+		Optional<Credits> c = creditsRepository.findById(id); // create instance of a passed in Credits object by id
+		if (c.isPresent()) {
 			creditsRepository.deleteById(id);
-			jr = JsonResponse.getInstance(a);
+			jr = JsonResponse.getInstance(c);
 		} else {
 			jr = JsonResponse.getInstance("User ID " + id + " was not successful deleted.");
 		}
@@ -129,7 +123,7 @@ public class CreditController {
 
 	// get Credits by Movie ID
 	@GetMapping("/getByMovie")
-	public @ResponseBody JsonResponse getCreditsByGender(@RequestBody Credits Credits) { // returns the user
-		return JsonResponse.getInstance(creditsRepository.findByMovie(Credits.getMovie()));
+	public @ResponseBody JsonResponse getCreditsByMovie(@RequestBody Movie movie) { // returns all credits by Movie
+		return JsonResponse.getInstance(creditsRepository.findByMovie(movie));
 	}
 }

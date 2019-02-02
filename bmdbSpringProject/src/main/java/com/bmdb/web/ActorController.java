@@ -129,7 +129,7 @@ public class ActorController {
 
 	// get actor by Gender
 	@GetMapping("/getByGender")
-	public @ResponseBody JsonResponse getActorByGender(@RequestBody Actor actor) { // returns the user
+	public @ResponseBody JsonResponse getActorByGender(@RequestBody Actor actor) { // returns the Actor
 		return JsonResponse.getInstance(actorRepository.findByGender(actor.getGender()));
 	}
 }
