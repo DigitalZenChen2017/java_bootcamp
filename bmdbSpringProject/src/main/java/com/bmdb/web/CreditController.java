@@ -1,5 +1,6 @@
 package com.bmdb.web;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bmdb.business.Actor;
 import com.bmdb.business.Credits;
 import com.bmdb.business.CreditsRepository;
 import com.bmdb.business.Movie;
@@ -125,5 +127,12 @@ public class CreditController {
 	@GetMapping("/getByMovie")
 	public @ResponseBody JsonResponse getCreditsByMovie(@RequestBody Movie movie) { // returns all credits by Movie
 		return JsonResponse.getInstance(creditsRepository.findByMovie(movie));
+	}
+	
+	// add List of Actors
+	@PostMapping("addListOfActors")
+	public @ResponseBody JsonResponse addListOfActors(@RequestBody List <Actor> actor) {
+		return null;
+		
 	}
 }

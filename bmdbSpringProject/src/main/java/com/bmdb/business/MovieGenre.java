@@ -16,8 +16,8 @@ public class MovieGenre {
 	@JoinColumn(name = "movieID")
 	private Movie movie; // specifies many Movie Genres for one movie
 	@ManyToOne
-	@JoinColumn(name = "genreID") 
-	private Genre genre; 
+	@JoinColumn(name = "genreID")
+	private Genre genre;
 
 	public int getId() {
 		return id;
