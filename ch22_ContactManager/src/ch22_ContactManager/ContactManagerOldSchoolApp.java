@@ -40,7 +40,8 @@ public class ContactManagerOldSchoolApp {
 		List<Contact> contactsNoPhone = new ArrayList<>();
 
 		for (Contact c : contacts) {
-			if (c.getPhone() == null) {
+			if (c.getPhone() == null) { // if instance of Contact object named "contacts" has a null for phone field,
+										// add to new ArrayList
 				contactsNoPhone.add(c);
 			}
 		}

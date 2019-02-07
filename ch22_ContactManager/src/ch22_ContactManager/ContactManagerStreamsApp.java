@@ -36,11 +36,9 @@ public class ContactManagerStreamsApp {
 
 		List<Contact> cnp = contacts.stream().filter(c -> c.getPhone() == null).collect(Collectors.toList());
 		System.out.println("There are " + cnp.size() + " contacts with no phone numbers.");
-		
-		List<String> contactNames = contacts.stream()
-				.map(Contact::getName)
-				.collect(Collectors.toList());
-		
+
+		List<String> contactNames = contacts.stream().map(Contact::getName).collect(Collectors.toList());
+
 		contactNames.stream().forEach(System.out::println);
 
 		// goodbye message

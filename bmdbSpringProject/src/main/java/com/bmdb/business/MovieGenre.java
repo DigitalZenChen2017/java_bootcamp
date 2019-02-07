@@ -15,9 +15,21 @@ public class MovieGenre {
 	@ManyToOne
 	@JoinColumn(name = "movieID")
 	private Movie movie; // specifies many Movie Genres for one movie
-	@ManyToOne
+	@ManyToOne // specifies many MovieGenre objects to one genre
 	@JoinColumn(name = "genreID")
 	private Genre genre;
+	@ManyToOne // specifies many MovieGenre objects to one actor
+	@JoinColumn(name = "actorID")
+	private Actor actor;
+	
+	// getters and setters
+	public Actor getActor() {
+		return actor;
+	}
+
+	public void setActor(Actor actor) {
+		this.actor = actor;
+	}
 
 	public int getId() {
 		return id;
