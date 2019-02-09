@@ -1,6 +1,11 @@
 package business;
 
 public class Movie {
+	@Override
+	public String toString() {
+		return "\nMovie title= " + title + ", year= " + year + ", rating= " + rating;
+	}
+
 	// private instance variables
 	private String title;
 	private int year;
