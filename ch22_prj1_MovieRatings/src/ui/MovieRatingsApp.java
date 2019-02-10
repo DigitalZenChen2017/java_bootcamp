@@ -5,6 +5,7 @@ import util.Console;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import business.Movie;
 
@@ -48,22 +49,35 @@ public class MovieRatingsApp {
 			} else if (selection == 2) {
 				System.out.println("\nTop Rated Movies");
 				System.out.println("----------------\n");
-				movies.stream().filter(m -> m.getRating() >= 4.0).forEach(m -> System.out.println(m));
+				// stream example
+				// movies.stream().filter(m -> m.getRating() >= 4.0).forEach(m ->
+				// System.out.println(m));
+				List<Movie> topratedMovies = movieCollection.filterMovies(m -> m.getRating() >= 4.0);
+				System.out.println(topratedMovies);
 			}
 
-			// Enter a movie
+			// View most recent movies
 			else if (selection == 3) {
-
+				System.out.println("\nMovies Rated 4.0 or Higher");
+				System.out.println("--------------------------\n");
+				List<Movie> mostrecentMovies = movieCollection.filterMovies(m -> m.getYear() >= 2009);
+				System.out.println(mostrecentMovies);
 			}
 
 			// View all movies
 			else if (selection == 4) {
-				System.out.println(movieCollection);
+//				System.out.println(movieCollection);
+				movies.stream().forEach(m -> System.out.println(m));
 			}
 
 			// View ratings
 			else if (selection == 5) {
-
+				System.out.println("\nMovie Rating Data");
+				System.out.println("-----------------\n");
+				System.out.println("Number of movies: " + movieCollection.getSize());
+				System.out.println("Lowest Rating: " + movieCollection.getLowestRating());
+				System.out.println("Highest Rating: " + movieCollection.getHighestRating());
+				System.out.println("Average Rating: " + movieCollection.getAverageRating());
 			}
 
 			// Quit application
@@ -88,5 +102,4 @@ public class MovieRatingsApp {
 		System.out.println("5 - View ratings");
 		System.out.println("6 - Quit application");
 	}
-
 }

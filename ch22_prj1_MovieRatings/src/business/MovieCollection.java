@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class MovieCollection {
-	public List<Movie> movie;
+	public List<Movie> movies;
 
-	public MovieCollection(List<Movie> movie) {
+	public MovieCollection(List<Movie> movies) {
 		super();
-		this.movie = movie;
+		this.movies = movies;
 	}
 
 	public void add(Movie movie) { // add Movie object to internal list
@@ -17,7 +17,7 @@ public class MovieCollection {
 
 	public List<Movie> filterMovies(Predicate<Movie> condition) {
 		List<Movie> filteredMovies = new ArrayList<>();
-		for (Movie m : filteredMovies) {
+		for (Movie m : movies) {
 			if (condition.test(m)) {
 				filteredMovies.add(m);
 			}
@@ -26,24 +26,27 @@ public class MovieCollection {
 	}
 
 	public double getLowestRating() {
-		return 0;
+		double lowestRating = movies.stream().map(m -> m.getRating()).reduce(5.0, Math::min);
+		return lowestRating;
 	}
 
 	public double getHighestRating() {
-		return 0;
+		double highestRating = movies.stream().map(m -> m.getRating()).reduce(0.0, (a, b) -> Math.max(a, b));
+		return highestRating;
 	}
 
 	public double getAverageRating() {
-		return 0;
+		double averageRating = movies.stream().mapToDouble(m -> m.getRating()).sum()/movies.size();
+		return averageRating;
 	}
 
 	public int getSize() { // return number of items in internal list
-		return movie.size();
+		return movies.size();
 	}
 
 	@Override
 	public String toString() {
-		return "\nMovieCollection:" + movie;
+		return "\nMovieCollection:" + movies;
 	}
 
 }
